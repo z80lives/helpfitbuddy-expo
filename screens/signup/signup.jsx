@@ -27,7 +27,7 @@ const SignupScreen = ({navigation}) => {
           </Form>
 
           <Button full warning>
-            <Text> Sing up </Text>
+            <Text> Sign Up </Text>
           </Button>
 
           <View style={styles.text_account}> 

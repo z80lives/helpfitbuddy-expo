@@ -33,3 +33,5 @@ export default class ButtonIconExample extends Component {
     );
   }
 }
+
+export default ActivityScreen;
