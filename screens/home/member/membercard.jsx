@@ -6,10 +6,10 @@ export const MemberCard = ({name, age, distance, imageSrc}) => (
     <Container>  	
 	<Card style={styles.cardStyle}>
 	    <Image
-		style={{height: 200, width: 100}}
+		style={{height: 200, marginLeft: 20, marginTop: 15, width: 150}}
 		source={imageSrc}	   
 	    />
-	    <Button style={styles.floatingLikeButton}><Icon name="like" type="SimpleLineIcons"></Icon></Button>
+	    <Button rounded style={styles.floatingLikeButton}><Icon name="like2" type="AntDesign"></Icon></Button>
 	    <Text>{name}, {age}</Text>
 	    <Text style={styles.locationStyle}><Icon style={styles.locationStyle} name="location-pin" type="Entypo" />{distance} km</Text>
 	</Card>
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
     floatingLikeButton: {
 	position: "absolute",
-	bottom: 10,
+	bottom: 20,
 	right: 10
     }
 });

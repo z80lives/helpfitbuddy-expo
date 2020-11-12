@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 
 import {MemberScreen} from "./member/member.jsx";
+import {ActivityScreen} from "./activities/activites.jsx";
 //import ActivityScreen from "/activites/activites.jsx";
 
 class BodyContent extends React.Component{
@@ -9,9 +10,9 @@ class BodyContent extends React.Component{
 	if(this.props.currentPage==0)
 	    return <MemberScreen/>;
 	else if(this.props.currentPage==1)	    
-	    return <MemberScreen/>;
+	    return <ActivityScreen/>;
 	else
-	    return <MemberScreen/>;
+	    return <ActivityScreen/>;
     }
 }
 
@@ -21,7 +22,8 @@ export default class FooterTabsIconTextExample extends Component {
     }
 
     clickNav = (num) => {
-	this.setState({currentPage: num})
+      console.log("Opening page number", num);
+	    this.setState({currentPage: num})
     }
     
   render() {

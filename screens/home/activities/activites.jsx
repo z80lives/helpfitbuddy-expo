@@ -5,9 +5,7 @@ export class ActivityScreen extends Component {
   render() {
     return (
       <Container>
-        <Header />
-        <Content>
-        </Content>
+        <Text>Activity Screen here</Text>
       </Container>
     );
   }
