@@ -5,7 +5,7 @@ import LoginScreen from './screens/login/login.jsx';
 import SignupScreen from './screens/signup/signup.jsx';
 import HomeScreen from './screens/home/home.jsx';
 
-
+import {ChatWindow} from "./screens/home/chat/chatWindow";
 
 
 
@@ -67,6 +67,13 @@ class App extends React.Component{
 			back={false}
 		    />
 		    
+      <Scene 
+        component={ChatWindow}
+        hideNavBar={false}
+        key="chatwindow"
+        title="Messaging"        
+      />
+
 		</Stack>
 	    </Router>
 	);
