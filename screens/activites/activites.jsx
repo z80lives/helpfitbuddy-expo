@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Button, Icon, Text } from 'native-base';
+
 export default class ButtonIconExample extends Component {
   render() {
     return (
       <Container>
         <Header />
         <Content>
+        
           <Button iconLeft light>
-            <Icon name='arrow-back' />
+            <Icon name='computer' type=""material />
             <Text>Back</Text>
           </Button>
           <Button iconRight light>

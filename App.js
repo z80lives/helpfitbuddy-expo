@@ -10,6 +10,8 @@ import HomeScreen from './screens/home/home.jsx';
 
 
 
+
+
 import {Router, Stack, Scene} from 'react-native-router-flux';
 //import HomeScreen from './screens/home/home.component';
 
@@ -53,6 +55,9 @@ const App = () => (
         
       </Stack>
     </Router>
+
+    
 );
+
 
 export default App;

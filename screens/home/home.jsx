@@ -9,23 +9,23 @@ export default class FooterTabsIconTextExample extends Component {
         <Footer>
           <FooterTab>
             <Button vertical>
-              <Icon name="computer" />
-              <Text>Members</Text>
+              <Icon name="computer" type="MaterialIcons" />
+              <Text>Member</Text>
             </Button>
             <Button vertical>
-              <Icon name="activity" />
-              <Text>Ativity</Text>
+              <Icon name="bell-o" type="FontAwesome"/>
+              <Text>Activity</Text>
             </Button>
             <Button vertical active>
-              <Icon active name="events" />
+              <Icon  name="event" type="MaterialIcons" />
               <Text>Events</Text>
             </Button>
             <Button vertical>
-              <Icon name="chat" />
+              <Icon name="chat" type="MaterialIcons" />
               <Text>Chat</Text>
             </Button>
             <Button vertical>
-              <Icon name="profile" />
+              <Icon name="person" type="Octicons"/>
               <Text>Profile</Text>
             </Button>
           </FooterTab>
