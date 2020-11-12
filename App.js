@@ -3,7 +3,6 @@ import {Text, View} from 'react-native';
 
 import LoginScreen from './screens/login/login.jsx';
 import SignupScreen from './screens/signup/signup.jsx';
-import ActivitesScreen from './screens/activites/activites.jsx';
 import HomeScreen from './screens/home/home.jsx';
 
 
@@ -58,13 +57,6 @@ class App extends React.Component{
 			hideNavBar={true}
 			key="signup"
 			title="Sign up"
-		    />
-
-		    <Scene
-			component={ActivitesScreen}
-			hideNavBar={false}
-			key="activites"
-			title="Activites"
 		    />
 
 		    <Scene
