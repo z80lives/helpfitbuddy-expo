@@ -17,42 +17,66 @@ import {Router, Stack, Scene} from 'react-native-router-flux';
 //import store from './redux/store';
 
 //const ConnectedRouter = connect()(Router);
+import * as Font from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
 
-const App = () => (
-    <Router>
-      <Stack key="root">
-        <Scene
-          component={LoginScreen}
-          hideNavBar={true}
-          initial={true}
-          key="login"
-          title="Login"
-        />
-        
-        <Scene 
-          component={SignupScreen}
-          hideNavBar={true}
-          key="signup"
-          title="Sign up"
-        />
+class App extends React.Component{
 
-        <Scene
-          component={ActivitesScreen}
-          hideNavBar={false}
-          key="activites"
-          title="Activites"
-        />
+      constructor(props) {
+	  super(props);
+	  this.state = {
+	      isReady: false,
+	  };
+      }
 
-        <Scene
-          component={HomeScreen}
-          hideNavBar={false}
-          key="home"
-          title="home"
-          back={false}
-        />
-        
-      </Stack>
-    </Router>
-);
+    async componentDidMount() {
+	await Font.loadAsync({
+	    Roboto: require('native-base/Fonts/Roboto.ttf'),
+	    Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+	    ...Ionicons.font,
+	});
+	this.setState({ isReady: true });
+    }
+
+    render(){
+
+	return(
+	    <Router>
+		<Stack key="root">
+		    <Scene
+			component={LoginScreen}
+			hideNavBar={true}
+			initial={true}
+			key="login"
+			title="Login"
+		    />
+		    
+		    <Scene 
+			component={SignupScreen}
+			hideNavBar={true}
+			key="signup"
+			title="Sign up"
+		    />
+
+		    <Scene
+			component={ActivitesScreen}
+			hideNavBar={false}
+			key="activites"
+			title="Activites"
+		    />
+
+		    <Scene
+			component={HomeScreen}
+			hideNavBar={true}
+			key="home"
+			title="home"
+			back={false}
+		    />
+		    
+		</Stack>
+	    </Router>
+	);
+    }
+}
 
 export default App;

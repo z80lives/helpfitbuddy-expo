@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Button, Text, View } from 'native-base';
+import {Actions} from "react-native-router-flux";
 
 const LoginScreen = ({navigation}) => {
   
@@ -20,13 +21,13 @@ const LoginScreen = ({navigation}) => {
             </Item>
           </Form>
 
-          <Button full warning>
+            <Button full warning onPress={()=> Actions.home()}>
             <Text> Login </Text>
           </Button>
 
           <View style={styles.text_account}> 
           <Button transparent light
-            onPress={() => navigation.navigate('home')}>
+		  onPress={() => Actions.signup()}>
             <Text>Register new account</Text>
           </Button>
           
