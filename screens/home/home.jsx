@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 
 import {MemberScreen} from "./member/member.jsx";
-import {ActivityScreen} from "./activities/activites.jsx";
+//import {ActivityScreen} from "./activities/activites.jsx";
 //import ActivityScreen from "/activites/activites.jsx";
 
 class BodyContent extends React.Component{
@@ -10,9 +10,9 @@ class BodyContent extends React.Component{
 	if(this.props.currentPage==0)
 	    return <MemberScreen/>;
 	else if(this.props.currentPage==1)	    
-	    return <ActivityScreen/>;
+	    return <MemberScreen/>;
 	else
-	    return <ActivityScreen/>;
+	    return <Text>Not implemented yet</Text>;
     }
 }
 
