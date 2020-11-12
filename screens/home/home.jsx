@@ -5,6 +5,7 @@ import {MemberScreen} from "./member/member.jsx";
 import {ActivityScreen} from "./activities/activites.jsx";
 //import ActivityScreen from "/activites/activites.jsx";
 
+
 class BodyContent extends React.Component{
     render(){
 	if(this.props.currentPage==0)
@@ -39,7 +40,7 @@ export default class FooterTabsIconTextExample extends Component {
               <Icon active={this.state.currentPage==0} name="computer" type="MaterialIcons" />
               <Text>Home</Text>
             </Button>
-            <Button vertical onPress={()=>this.clickNav(1)} active={this.state.currentPage==1}>
+              <Button vertical onPress={()=>this.clickNav(1)} active={this.state.currentPage==1}>
               <Icon name="dumbbell" active={this.state.currentPage==1} type="FontAwesome5" />
               <Text>Activity</Text>
             </Button>
@@ -47,11 +48,11 @@ export default class FooterTabsIconTextExample extends Component {
 		  <Icon active={this.state.currentPage==2} name="calendar" type="AntDesign" />
               <Text>Events</Text>
             </Button>
-            <Button vertical onPress={()=>this.clickNav(3)} active={this.state.currentPage==3}>
+              <Button vertical onPress={()=>this.clickNav(3)} active={this.state.currentPage==3}>
               <Icon active={this.state.currentPage==3} name="chat" type="Entypo" />
               <Text>Chat</Text>
             </Button>
-            <Button vertical onPress={()=>this.clickNav(4)} active={this.state.currentPage==4}>
+              <Button vertical onPress={()=>this.clickNav(4)} active={this.state.currentPage==4}>
               <Icon active={this.state.currentPage==4} name="profile" type="AntDesign"/>
               <Text>Profile</Text>
             </Button>
