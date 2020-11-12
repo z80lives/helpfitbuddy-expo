@@ -20,7 +20,7 @@ export const MemberCard = ({name, age, distance, imageSrc}) => (
 const styles = StyleSheet.create({
     cardStyle: {
 	width: 200,
-	height: 250
+	height: 250 // this one for fixing the gap
     },
     locationStyle: {
 	color: "red",

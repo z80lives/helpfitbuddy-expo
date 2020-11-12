@@ -60,7 +60,7 @@ export class MemberScreen extends React.Component{
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     colStyles: {
 	backgroundColor: '#635DB7',
 	height: 200
