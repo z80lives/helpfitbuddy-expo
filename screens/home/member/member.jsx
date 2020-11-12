@@ -68,6 +68,6 @@ const style = StyleSheet.create({
     rowStyles: {
 	height: 270
     }
-}
+});
 
 export default MemberScreen;
