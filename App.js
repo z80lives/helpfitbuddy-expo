@@ -5,7 +5,7 @@ import LoginScreen from './screens/login/login.jsx';
 import SignupScreen from './screens/signup/signup.jsx';
 import HomeScreen from './screens/home/home.jsx';
 
-import {ChatWindow} from "./screens/home/chat/chatWindow";
+import {ChatWindow} from "./screens/home/chat/chatWindow.jsx";
 
 
 
@@ -19,6 +19,7 @@ import {Router, Stack, Scene} from 'react-native-router-flux';
 
 //const ConnectedRouter = connect()(Router);
 import * as Font from 'expo-font';
+//import {Font} from "expo";
 import { Ionicons } from '@expo/vector-icons';
 
 class App extends React.Component{
@@ -32,15 +33,17 @@ class App extends React.Component{
 
     async componentDidMount() {
 	await Font.loadAsync({
-	    Roboto: require('native-base/Fonts/Roboto.ttf'),
-	    Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+	    "Roboto": require('native-base/Fonts/Roboto.ttf'),
+	    "Roboto_medium": require('native-base/Fonts/Roboto_medium.ttf'),
 	    ...Ionicons.font,
 	});
 	this.setState({ isReady: true });
     }
 
     render(){
-
+	if(!this.state.isReady){
+	    return <View></View>;
+	}
 	return(
 	    <Router>
 		<Stack key="root">

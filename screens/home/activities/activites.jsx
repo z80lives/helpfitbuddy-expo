@@ -19,7 +19,6 @@ export class ActivityScreen extends Component {
   render() {
     return (
       <Container>
-
         <Tabs>
           <Tab heading="Likes">
             <LikeView 

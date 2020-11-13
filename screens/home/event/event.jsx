@@ -1,8 +1,8 @@
-import React from "react";
+import React, {Component} from "react";
 import {Container, Text} from "native-base";
 
 
-export class EventScreen extends React.Component{
+export class EventScreen extends Component{
     render(){
         return(
             <Container>

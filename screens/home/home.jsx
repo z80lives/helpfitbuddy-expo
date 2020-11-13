@@ -41,7 +41,6 @@ export default class FooterTabsIconTextExample extends Component {
   render() {
     return (
       <Container>
-          <Header />
 	  <Content>
 	      <BodyContent currentPage={this.state.currentPage}/>
 	  </Content>

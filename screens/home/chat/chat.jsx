@@ -5,7 +5,7 @@ import { Actions } from "react-native-router-flux";
 var guy1 = require ('../../../res/guy1.jpeg');
 
 const ChatPerson = ({img, name, msg}) => (
-    <ListItem key={1} thumbnail>
+    <ListItem key={1} thumbnail button={true} onPress={()=>Actions.chatwindow()}>
     <Left>
         <Thumbnail square source={img} />
     </Left>
@@ -14,7 +14,7 @@ const ChatPerson = ({img, name, msg}) => (
         <Text note numberOfLines={1}>{msg}</Text>
     </Body>
     <Right>
-        <Button onPress={Actions.chatwindow()} transparent>
+        <Button  transparent>
         <Text>Reply</Text>
         </Button>
     </Right>

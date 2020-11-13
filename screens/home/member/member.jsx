@@ -7,9 +7,9 @@ import {MemberCard} from "./membercard.jsx";
 var guy1 = require ('../../../res/guy1.jpeg');
 
 const testData = [
-    {name:"Hothaifa", age: "22", distance: "6", imageSrc: guy1},
-    {name:"Ibrahim", age: "30", distance: "16", imageSrc: guy1},
-    {name:"Hothaifa", age: "32", distance: "35", imageSrc: guy1}
+    {_id: "1", name:"Hothaifa", age: "22", distance: "6", imageSrc: guy1},
+    {_id: "2", name:"Ibrahim", age: "30", distance: "16", imageSrc: guy1},
+    {_id: "3", name:"Hothaifa", age: "32", distance: "35", imageSrc: guy1}
 ];
 
 const sortGridItems = (td) => {
@@ -43,11 +43,11 @@ export class MemberScreen extends React.Component{
 	    <Container>
 		<Grid>
 		    {
-			this.state.personData.map( row =>
-			    <Row style={styles.rowStyles}>
-				{row.map(data =>
-				    <Col style={styles.colStyle} >
-					<MemberCard {...data} />
+			this.state.personData.map( (row, rowIndex) =>
+			    <Row style={styles.rowStyles} key={"cardRow_"+rowIndex}>
+				{row.map( (data, colIndex) =>
+				    <Col style={styles.colStyle} key={"cardCol_"+colIndex} >
+					<MemberCard {...data} key={data._id} />
 				    </Col>				 
 				)}
 			    </Row>

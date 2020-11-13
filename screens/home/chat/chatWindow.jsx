@@ -1,8 +1,14 @@
-import React from "react";
+import React, {Component} from "react";
 import {Container, Text} from "native-base";
 
+const ChatDataSample = [
+    {
+	type: "to",
+	msg: "Hello"
+    }
+];
 
-export class ChatWindow extends React.Component{
+export class ChatWindow extends Component{
     render(){
         return(
             <Container>
