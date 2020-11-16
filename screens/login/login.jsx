@@ -4,67 +4,39 @@ import { Container, Header, Content, Form, Item, Input, Button, Text, View } fro
 import {Actions, ActionConst} from "react-native-router-flux";
 import {connect} from 'react-redux';
 
-import {auth} from "../../redux/actions/auth";
+const LoginScreen = ({navigation}) => {
+  
+    return (
+      <Container>
+        <Header />
+        <Content>
+            <View  style={styles.header}>
+            <Text  style={styles.header1}>Login </Text>
+            </View>
+          <Form >
+            <Item regular style={styles.text_header}>
+              <Input placeholder="Username" />
+            </Item>
+            <Item regular style={styles.text_footer}>
+              <Input placeholder="Password" />
+            </Item>
+          </Form>
 
-class LoginScreen extends Component {
+            <Button full warning style={{width:380, left: 17, borderRadius: 5}} onPress={()=> Actions.home()}>
+            <Text> Login </Text>
+          </Button>
 
-    redirectAuthentication = () => {
-	if (this.props.isAuthenticated) {
-	    Actions.home({"type": ActionConst.RESET});
-	}
-    }
-
-    onClickLogin = () => {
-	this.props.loginAction("person1");
-	this.redirectAuthentication();
-    }
-
-    componentDidUpdate() {
-	this.redirectAuthentication();
-    }
-    
-    componentDidMount(){
-	this.redirectAuthentication(); 
-    }
-
-
-    render(){
-	if(!this.props.isAuthenticated){
-	    return (
-		<Container>
-		    <Header />
-		    <Content>
-			<View  style={styles.header}>
-			    <Text  style={styles.header1}>Login </Text>
-			</View>
-			<Form >
-			    <Item align style={styles.text_header}>
-				<Input placeholder="Username" />
-			    </Item>
-			    <Item align style={styles.text_footer}>
-				<Input placeholder="Password"  secureTextEntry/>
-			    </Item>
-			</Form>
-			
-			<Button full warning onPress={this.onClickLogin}>
-			<Text> Login </Text>
-			</Button>
-			
-			<View style={styles.text_account}> 
-			    <Button transparent light
-				    onPress={() => Actions.signup()}>
-				<Text>Register new account</Text>
-			    </Button>
-			    
-			</View>
-			
-		    </Content>
-		</Container>
-	    );
-	}else{
-	    return (<Container><Text>Please wait</Text></Container>);
-	}
-    }
+          <View style={styles.text_account}> 
+          <Button transparent light
+		        onPress={() => Actions.signup()}>
+            <Text>Register new account</Text>
+          </Button>
+          
+          </View>
+          
+        </Content>
+      </Container>
+    );
   }
 
 const mapStateToProps = ({authReducer}) => ({
@@ -96,11 +68,15 @@ const styles = StyleSheet.create({
 
     text_header: {
         flex: 1,
+        width: 399,
+        left: 8,
         marginTop: 30,
     },
 
     text_footer: {
         flex: 1,
+        width: 399,
+        left: 8,
         marginTop: 10,
         marginBottom: 35,
     },

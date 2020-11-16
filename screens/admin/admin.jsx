@@ -12,50 +12,23 @@ import {
 } from "native-base";
 import { Actions } from "react-native-router-flux";
 
-export class ProfileScreen extends React.Component {
+export class AdminScreen extends React.Component {
   render() {
     return (
       <Container>
         <Grid>
           <Row>
             <Card style={styles.Container}>
-              <Text style={styles.nameStyle}>Hothaifa Alhammadi</Text>
+              <Text style={styles.nameStyle}> Salem Mohammed</Text>
 
               <Button style={styles.profileButton}>
                 <Icon name="person" type="Octicons" />
               </Button>
-              <Button
-                rounded
-                style={styles.ViewProfileButton}
-                onPress={() => Actions.viewProfile()}
-              >
-                <Text style={{ color: "#7f709f" }}>View Profile</Text>
-              </Button>
             </Card>
           </Row>
-          <Text style={styles.nameStyle1}>Student</Text>
-          <Text style={styles.nameStyle2}>
-            <Icon
-              style={{ fontSize: 15, color: "#800080" }}
-              name="world-o"
-              type="Fontisto"
-            />
-            Yemen
-          </Text>
-
+          <Text style={styles.nameStyle2}>Admin</Text>
           <Card style={styles.Container1}>
             <Row>
-              <View>
-                <Button style={styles.circleButton1}>
-                  <Icon
-                    style={styles.iconStyle1}
-                    name="share"
-                    type="Fontisto"
-                  />
-                </Button>
-                <Text style={{ left: 70, top: 10 }}>Share</Text>
-              </View>
-
               <View>
                 <Button
                   style={styles.circleButton3}
@@ -63,27 +36,27 @@ export class ProfileScreen extends React.Component {
                 >
                   <Icon
                     style={styles.iconStyle2}
-                    name="settings"
-                    type="SimpleLineIcons"
+                    name="clipboard-notes"
+                    type="Foundation"
                   />
                 </Button>
-                <Text style={{ left: 215, top: 10 }}>Edit Profile</Text>
+                <Text style={{ left: 185, top: 10 }}>Add Gym</Text>
               </View>
               <View>
                 <Button style={styles.circleButton2}>
                   <Icon
                     style={styles.iconStyle}
-                    name="pencil-alt"
-                    type="FontAwesome5"
+                    name="add-circle-outline"
+                    type="MaterialIcons"
                   />
                 </Button>
-                <Text style={{ left: 98, top: 210 }}>Edit Profile</Text>
+                <Text style={{ left: 200, top: 210 }}>Logout</Text>
               </View>
               <View>
                 <Button style={styles.circleButton4}>
-                  <Icon style={styles.iconStyle4} name="star" type="Fontisto" />
+                  <Icon style={styles.iconStyle4} name="log-out" type="Entypo" />
                 </Button>
-                <Text style={{ right: 230, top: 210 }}>Settings</Text>
+                <Text style={{ right: 130, top: 210 }}>View Gym Statistics</Text>
               </View>
             </Row>
           </Card>
@@ -93,7 +66,7 @@ export class ProfileScreen extends React.Component {
   }
 }
 
-export default ProfileScreen;
+export default AdminScreen;
 const styles = StyleSheet.create({
   Container: {
     backgroundColor: "#4d2b78",
@@ -106,15 +79,7 @@ const styles = StyleSheet.create({
   Container1: {
     height: 380,
     paddingTop: 10,
-    marginBottom: 60,
-  },
-  circleButton1: {
-    backgroundColor: "#f1f0f0",
-    width: 100,
-    height: 100,
-    borderRadius: 110,
-    left: 40,
-    justifyContent: "center",
+    marginBottom: 5,
   },
 
   circleButton2: {
@@ -122,7 +87,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 110,
-    left: 90,
+    left:65,
     justifyContent: "center",
   },
 
@@ -132,7 +97,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 110,
     top: 200,
-    right: 58,
+    left: 80,
     justifyContent: "center",
   },
 
@@ -142,7 +107,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 110,
     top: 200,
-    right: 18,
+    left:70,   
     justifyContent: "center",
   },
 
@@ -156,32 +121,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  ViewProfileButton: {
-    backgroundColor: "white",
-    left: 140,
-    top: 70,
-    width: 180,
-    justifyContent: "center",
-    borderWidth: 2,
-    borderColor: "#a996b6",
-  },
-
   iconStyle: {
-    color: "#4169E1",
-    fontSize: 35,
-    left: 5,
+    color: "green",
+    fontSize: 60,
   },
   iconStyle1: {
     color: "red",
-    fontSize: 35,
+    fontSize: 60,
   },
   iconStyle2: {
-    color: "#3CB371",
-    fontSize: 35,
+    color: "blue",
+    fontSize: 60,
   },
   iconStyle4: {
-    color: "orange",
-    fontSize: 35,
+    color: "red",
+    fontSize: 50,
+    left: 5
+    
   },
   TextColor: {
     color: "black",
@@ -196,14 +152,10 @@ const styles = StyleSheet.create({
     top: 105,
     left: 185,
   },
-  nameStyle1: {
-    fontSize: 18,
-    left: 178,
-    bottom: 65,
-  },
+
   nameStyle2: {
     fontSize: 18,
     left: 175,
-    bottom: 55,
-  }
+    bottom: 65,
+  },
 });
