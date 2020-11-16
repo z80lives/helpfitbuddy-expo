@@ -9,18 +9,18 @@ import {ChatWindow} from "./screens/home/chat/chatWindow.jsx";
 
 
 
-
-
 import {Router, Stack, Scene} from 'react-native-router-flux';
-//import HomeScreen from './screens/home/home.component';
-
-//import {connect, Provider} from 'react-redux';
-//import store from './redux/store';
+import {connect, Provider} from 'react-redux';
+import store from './redux/store';
 
 //const ConnectedRouter = connect()(Router);
 import * as Font from 'expo-font';
 //import {Font} from "expo";
 import { Ionicons } from '@expo/vector-icons';
+
+
+
+const ConnectedRouter = connect()(Router);
 
 class App extends React.Component{
 
@@ -45,7 +45,8 @@ class App extends React.Component{
 	    return <View></View>;
 	}
 	return(
-	    <Router>
+	    <Provider store={store}>
+	    <ConnectedRouter>
 		<Stack key="root">
 		    <Scene
 			component={LoginScreen}
@@ -78,7 +79,8 @@ class App extends React.Component{
       />
 
 		</Stack>
-	    </Router>
+	    </ConnectedRouter>
+	    </Provider>
 	);
     }
 }

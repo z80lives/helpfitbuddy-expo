@@ -5,7 +5,7 @@ import {MemberScreen} from "./member/member.jsx";
 import {ActivityScreen} from "./activities/activites.jsx";
 import {EventScreen} from './event/event.jsx';
 import {ChatScreen} from './chat/chat.jsx'
-import {ProfileScreen} from './profile/profile.jsx'
+import ProfileScreen from './profile/profile.jsx'
 
 //import {ActivityScreen} from "./activities/activites.jsx";
 //import ActivityScreen from "/activites/activites.jsx";
@@ -34,7 +34,6 @@ export default class FooterTabsIconTextExample extends Component {
     }
 
     clickNav = (num) => {
-      console.log("Opening page number", num);
 	    this.setState({currentPage: num})
     }
     
