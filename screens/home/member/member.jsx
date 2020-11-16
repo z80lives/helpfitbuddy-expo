@@ -61,13 +61,14 @@ export class MemberScreen extends React.Component{
 }
 
 const styles = StyleSheet.create({
-    colStyles: {
-	backgroundColor: '#635DB7',
-	height: 200
-    },
-    rowStyles: {
-	height: 270
-    }
+	colStyles: {
+		backgroundColor: '#635DB7',
+		height: 200,
+		},
+	rowStyles: {
+		height: 270,
+		marginTop:30
+		}
 });
 
 export default MemberScreen;

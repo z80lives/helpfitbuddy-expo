@@ -13,21 +13,21 @@ const LoginScreen = ({navigation}) => {
             <Text  style={styles.header1}>Login </Text>
             </View>
           <Form >
-            <Item align style={styles.text_header}>
+            <Item regular style={styles.text_header}>
               <Input placeholder="Username" />
             </Item>
-            <Item align style={styles.text_footer}>
+            <Item regular style={styles.text_footer}>
               <Input placeholder="Password" />
             </Item>
           </Form>
 
-            <Button full warning onPress={()=> Actions.home()}>
+            <Button full warning style={{width:380, left: 17, borderRadius: 5}} onPress={()=> Actions.home()}>
             <Text> Login </Text>
           </Button>
 
           <View style={styles.text_account}> 
           <Button transparent light
-		  onPress={() => Actions.signup()}>
+		        onPress={() => Actions.signup()}>
             <Text>Register new account</Text>
           </Button>
           
@@ -62,11 +62,15 @@ const styles = StyleSheet.create({
 
     text_header: {
         flex: 1,
+        width: 399,
+        left: 8,
         marginTop: 30,
     },
 
     text_footer: {
         flex: 1,
+        width: 399,
+        left: 8,
         marginTop: 10,
         marginBottom: 35,
     },

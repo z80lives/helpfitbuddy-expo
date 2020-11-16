@@ -52,19 +52,19 @@ export default class FooterTabsIconTextExample extends Component {
               <Text>Home</Text>
             </Button>
               <Button vertical onPress={()=>this.clickNav(1)} active={this.state.currentPage==1}>
-              <Icon name="dumbbell" active={this.state.currentPage==1} type="FontAwesome5" />
+              <Icon name="bell-o" active={this.state.currentPage==1} type="FontAwesome" />
               <Text>Activity</Text>
             </Button>
               <Button vertical onPress={()=>this.clickNav(2)} active={this.state.currentPage==2}>
-		  <Icon active={this.state.currentPage==2} name="calendar" type="AntDesign" />
+		  <Icon active={this.state.currentPage==2} name="event" type="MaterialIcons" />
               <Text>Events</Text>
             </Button>
               <Button vertical onPress={()=>this.clickNav(3)} active={this.state.currentPage==3}>
-              <Icon active={this.state.currentPage==3} name="chat" type="Entypo" />
+              <Icon active={this.state.currentPage==3} name="chat" type="MaterialIcons" />
               <Text>Chat</Text>
             </Button>
               <Button vertical onPress={()=>this.clickNav(4)} active={this.state.currentPage==4}>
-              <Icon active={this.state.currentPage==4} name="profile" type="AntDesign"/>
+              <Icon active={this.state.currentPage==4} name="person" type="MaterialIcons"/>
               <Text>Profile</Text>
             </Button>
           </FooterTab>

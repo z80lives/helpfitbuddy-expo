@@ -6,6 +6,7 @@ import SignupScreen from './screens/signup/signup.jsx';
 import HomeScreen from './screens/home/home.jsx';
 
 import {ChatWindow} from "./screens/home/chat/chatWindow";
+import SettingScreen from './screens/home/profile/Setting/setting.jsx';
 
 
 
@@ -20,6 +21,7 @@ import {Router, Stack, Scene} from 'react-native-router-flux';
 //const ConnectedRouter = connect()(Router);
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
+import ViewProfileScreen from './screens/home/profile/ViewProfile/viewProfile.jsx';
 
 class App extends React.Component{
 
@@ -73,6 +75,21 @@ class App extends React.Component{
         key="chatwindow"
         title="Messaging"        
       />
+
+	  <Scene
+	  component={SettingScreen}
+	  hideNavBar={false}
+	  key="setting"
+	  title="Settings" 
+	  />
+
+	  <Scene
+	  component={ViewProfileScreen}
+	  hideNavBar={false}
+	  key="viewProfile"
+	  title="View Profile"
+
+	  />
 
 		</Stack>
 	    </Router>
