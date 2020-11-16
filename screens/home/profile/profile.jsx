@@ -19,6 +19,8 @@ export class ProfileScreen extends React.Component {
         <Grid>
           <Row>
             <Card style={styles.Container}>
+              <Text style={styles.nameStyle}>Hothaifa Alhammadi</Text>
+
               <Button style={styles.profileButton}>
                 <Icon name="person" type="Octicons" />
               </Button>
@@ -31,6 +33,16 @@ export class ProfileScreen extends React.Component {
               </Button>
             </Card>
           </Row>
+          <Text style={styles.nameStyle1}>Student</Text>
+          <Text style={styles.nameStyle2}>
+            <Icon
+              style={{ fontSize: 15, color: "#800080" }}
+              name="world-o"
+              type="Fontisto"
+            />
+            Yemen
+          </Text>
+
           <Card style={styles.Container1}>
             <Row>
               <View>
@@ -177,4 +189,21 @@ const styles = StyleSheet.create({
     right: 20,
     paddingTop: 80,
   },
+  nameStyle: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    top: 105,
+    left: 185,
+  },
+  nameStyle1: {
+    fontSize: 18,
+    left: 178,
+    bottom: 65,
+  },
+  nameStyle2: {
+    fontSize: 18,
+    left: 175,
+    bottom: 55,
+  }
 });
