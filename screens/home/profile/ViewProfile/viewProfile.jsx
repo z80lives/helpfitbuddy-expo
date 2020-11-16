@@ -1,95 +1,68 @@
 import React from "react";
-import { Container, Text, View, Input, Item, Form, Button } from "native-base";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { StyleSheet, modalStyleIOS } from "react-native";
+import { Container, Grid, Row, Text, View, Icon } from "native-base";
+import { Image, StyleSheet } from "react-native";
 
 export class ViewProfileScreen extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      dateText: "Enter open Time",
-      isVisible: false,
-      chosenDate: "",
-    };
-  }
-
-  handlePicker = (datetime) => {
-    const formatDate = new Intl.DateTimeFormat("default", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    }).format(datetime);
-
-    this.setState({
-      dateText: formatDate,
-      isVisible: false,
-    });
-  };
-
-  hidePicker = (datetime) => {
-    this.setState({
-      isVisible: false,
-    });
-  };
-
-  showPicker = () => {
-    this.setState({
-      isVisible: true,
-    });
-  };
   render() {
     return (
       <Container>
-        <Container>
-          <View style={styles.container}>
-            <View>
-              <Text style={{ fontSize: 35, marginBottom: 50 }}>CREATE GYM</Text>
-            </View>
-            <View>
-              <Form>
-                <Item regular style={styles.button}>
-                  <Input placeholder="Name of Gym" />
-                </Item>
-
-                <Text>{this.state.chosenDate}</Text>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.showPicker}
-                >
-                  <Text style={styles.text}> {this.state.dateText} </Text>
-                </TouchableOpacity>
-
-                <Text>{this.state.chosenDate}</Text>
-
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.showPicker}
-                >
-                  <Text style={styles.text}> {this.state.dateText} </Text>
-                </TouchableOpacity>
-
-                <Item regular style={(styles.button, { marginTop: 15 })}>
-                  <Input placeholder="Location" />
-                </Item>
-              </Form>
-            </View>
-
-            <DateTimePickerModal
-              style={{ modalStyleIOS }}
-              isVisible={this.state.isVisible}
-              onConfirm={this.handlePicker}
-              onCancel={this.hidePicker}
-              mode={"time"}
+        <Grid>
+          <Row>
+            <Image
+              source={require("../../../../res/hothaifa.jpg")}
+              style={styles.imageStyle}
             />
-          </View>
+          </Row>
+          <Row>
+            <Text style={styles.textStyle}>Hothaifa Alhammadi, 27</Text>
+            <View>
+              <Text style={{ top: 50, right: 180 }}>
+                <Icon
+                  style={{ fontSize: 15, color: "#800080" }}
+                  name="world-o"
+                  type="Fontisto"
+                />
+                Yemen
+              </Text>
 
-          <View>
-            <Button full warning onPress={() => Actions.home()}>
-              <Text style={{ color: "black" }}> Create </Text>
-            </Button>
-          </View>
-        </Container>
+              <Text style={{ top: 65, right: 180 }}>
+                <Icon
+                  style={{ fontSize: 15, color: "#800080" }}
+                  name="wallet-travel"
+                  type="MaterialCommunityIcons"
+                />
+                Student
+              </Text>
+            </View>
+
+            <View>
+              <Text
+                style={{
+                  top: 130,
+                  right: 250,
+                  fontWeight: "bold",
+                  fontSize: 18,
+                }}
+              >
+                <Icon
+                  style={{ fontSize: 15, color: "#800080" }}
+                  name="person"
+                  type="Fontisto"
+                />
+                About Me
+              </Text>
+              <Text
+                style={{
+                  top: 140,
+                  right: 200,
+                  color: 'gray'
+                }}
+              >
+                Interested in ping pong, basketball, MMA.....
+              </Text>
+            </View>
+          </Row>
+        </Grid>
       </Container>
     );
   }
@@ -98,24 +71,22 @@ export class ViewProfileScreen extends React.Component {
 export default ViewProfileScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  button: {
-    width: 400,
-    height: 50,
-    borderRadius: 5,
+  imageStyle: {
+    width: 415,
+    height: 338,
     borderWidth: 1,
-    borderColor: "#DCDCDC",
-    justifyContent: "center",
+    borderColor: "gray",
   },
-  text: {
+  textStyle: {
     fontSize: 18,
-    color: "gray",
-    alignSelf: "flex-start",
-    textAlign: "center",
+    fontWeight: "bold",
+    marginTop: 20,
+    left: 10,
+  },
+  textStyle1: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 20,
+    left: 10,
   },
 });
