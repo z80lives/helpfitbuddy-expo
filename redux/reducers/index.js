@@ -1,5 +1,6 @@
 import {ActionConst} from 'react-native-router-flux';
 import {combineReducers, createStore} from 'redux';
+import authReducer from "./auth";
 
 const sceneReducer = (state = {}, {type, scene}) => {
   switch (type) {
@@ -11,22 +12,5 @@ const sceneReducer = (state = {}, {type, scene}) => {
 };
 
 
-const initialState = {
-  isAuthenticated: false,
-  isLoading: false,
-  user: null,
-  error: '',
-};
-
-const authReducer = (state = initialState, {type, payload}) => {
-  switch (type) {
-    case "LOGIN":
-      return {...state, user: payload.user, isAuthenticated: true};
-  case "LOGOUT":
-      return {...state, user: null, isAuthenticated: false};
-    default:
-      return state;
-  }
-};
 
 export default combineReducers({sceneReducer, authReducer});

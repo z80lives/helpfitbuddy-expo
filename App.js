@@ -11,7 +11,6 @@ import SettingScreen from './screens/home/profile/Setting/setting.jsx';
 
 
 
-
 import {Router, Stack, Scene} from 'react-native-router-flux';
 import {connect, Provider} from 'react-redux';
 import store from './redux/store';
@@ -22,18 +21,18 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import ViewProfileScreen from './screens/home/profile/ViewProfile/viewProfile.jsx';
 
-
+import {Root} from "native-base";
 
 const ConnectedRouter = connect()(Router);
 
 class App extends React.Component{
 
-      constructor(props) {
-	  super(props);
-	  this.state = {
-	      isReady: false,
-	  };
-      }
+    constructor(props) {
+	super(props);
+	this.state = {
+	    isReady: false,
+	};
+    }
 
     async componentDidMount() {
 	await Font.loadAsync({
@@ -49,56 +48,56 @@ class App extends React.Component{
 	    return <View></View>;
 	}
 	return(
-	    <Provider store={store}>
-	    <ConnectedRouter>
-		<Stack key="root">
-		    <Scene
-			component={LoginScreen}
-			hideNavBar={true}
-			initial={true}
-			key="login"
-			title="Login"
-		    />
-		    
-		    <Scene 
-			component={SignupScreen}
-			hideNavBar={true}
-			key="signup"
-			title="Sign up"
-		    />
+	    <Provider store={store}>		
+		<ConnectedRouter>
+		    <Stack key="root">
+			<Scene
+			    component={LoginScreen}
+			    hideNavBar={true}
+			    initial={true}
+			    key="login"
+			    title="Login"
+			/>
 
-		    <Scene
-			component={HomeScreen}
-			hideNavBar={true}
-			key="home"
-			title="home"
-			back={false}
-		    />
-		    
-      <Scene 
-        component={ChatWindow}
-        hideNavBar={false}
-        key="chatwindow"
-        title="Messaging"        
-      />
+			<Scene
+			    component={SignupScreen}
+			    hideNavBar={true}
+			    key="signup"
+			    title="Sign up"
+			/>
 
-	  <Scene
-	  component={SettingScreen}
-	  hideNavBar={false}
-	  key="setting"
-	  title="Settings" 
-	  />
+			<Scene
+			    component={HomeScreen}
+			    hideNavBar={true}
+			    key="home"
+			    title="home"
+			    back={false}
+			/>
 
-	  <Scene
-	  component={ViewProfileScreen}
-	  hideNavBar={false}
-	  key="viewProfile"
-	  title="View Profile"
+			<Scene
+			    component={ChatWindow}
+			    hideNavBar={false}
+			    key="chatwindow"
+			    title="Messaging"
+			/>
 
-	  />
+			<Scene
+			    component={SettingScreen}
+			    hideNavBar={false}
+			    key="setting"
+			    title="Settings"
+			/>
 
-		</Stack>
-	    </ConnectedRouter>
+			<Scene
+			    component={ViewProfileScreen}
+			    hideNavBar={false}
+			    key="viewProfile"
+			    title="View Profile"
+
+			/>
+
+		    </Stack>
+		    </ConnectedRouter>
 	    </Provider>
 	);
     }
