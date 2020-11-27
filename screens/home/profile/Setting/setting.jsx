@@ -23,6 +23,12 @@ export class SettingScreen extends React.Component {
       newLike: false,
       newFit: false,
       newMessage: false,
+      Activity: false,
+      Exclusive: false,
+      Discount: false,
+      Distance: false,
+      Age: false,
+
             
     };
   }
@@ -92,8 +98,7 @@ export class SettingScreen extends React.Component {
               <View style={styles.barItem}>
                 <Text style={styles.newLike}>Activity & Messages</Text>
                 <Text style={styles.newFit}>Exclusive Event Invitations</Text>
-                <Text style={styles.newMessage}>
-                  Discount & Partner Promotion
+                <Text style={styles.newMessage}> Discount & Partner Promotion
                 </Text>
               </View>
             </Left>
@@ -104,8 +109,8 @@ export class SettingScreen extends React.Component {
                   trackColor={{ false: "white", true: "#C0C0C0" }}
                   thumbColor="#8B008B"
                   ios_backgroundColor="white"
-                  onValueChange={(value) => this.setState({ toggle: value })}
-                  value={this.state.toggle}
+                  onValueChange={(value) => this.setState({ Activity: value })}
+                  value={this.state.Activity}
                 />
 
                 <Switch
@@ -113,8 +118,8 @@ export class SettingScreen extends React.Component {
                   trackColor={{ false: "white", true: "#C0C0C0" }}
                   thumbColor="#8B008B"
                   ios_backgroundColor="white"
-                  onValueChange={(value) => this.setState({ toggle: value })}
-                  value={this.state.toggle}
+                  onValueChange={(value) => this.setState({ Exclusive: value })}
+                  value={this.state.Exclusive}
                 />
 
                 <Switch
@@ -122,8 +127,8 @@ export class SettingScreen extends React.Component {
                   trackColor={{ false: "white", true: "#C0C0C0" }}
                   thumbColor="#8B008B"
                   ios_backgroundColor="white"
-                  onValueChange={(value) => this.setState({ toggle: value })}
-                  value={this.state.toggle}
+                  onValueChange={(value) => this.setState({ Discount: value })}
+                  value={this.state.Discount}
                 />
               </Right>
             </View>
@@ -135,8 +140,8 @@ export class SettingScreen extends React.Component {
           <CardItem>
             <Left>
               <View style={styles.barItem}>
-                <Text style={styles.newLike}>Don't Show Mhy Age</Text>
-                <Text style={styles.newFit}>Make Mu Distance Invisible</Text>
+                <Text style={styles.newLike}>Don't Show My Age</Text>
+                <Text style={styles.newFit}>Make My Distance Invisible</Text>
               </View>
             </Left>
             <View>
@@ -146,8 +151,8 @@ export class SettingScreen extends React.Component {
                   trackColor={{ false: "white", true: "#C0C0C0" }}
                   thumbColor="#8B008B"
                   ios_backgroundColor="white"
-                  onValueChange={(value) => this.setState({ trunOn: value })}
-                  value={this.state.trunOn}
+                  onValueChange={(value) => this.setState({ Age: value })}
+                  value={this.state.Age}
                 />
 
                 <Switch
@@ -155,8 +160,8 @@ export class SettingScreen extends React.Component {
                   trackColor={{ false: "white", true: "#C0C0C0" }}
                   thumbColor="#8B008B"
                   ios_backgroundColor="white"
-                  onValueChange={(value) => this.setState({ trunOn: value })}
-                  value={this.state.trunOn}
+                  onValueChange={(value) => this.setState({ Distance: value })}
+                  value={this.state.Discount}
                 />
               </Right>
             </View>
