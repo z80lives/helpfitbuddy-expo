@@ -18,7 +18,12 @@ export class SettingScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      toggle: false,
+      toggle: false, //remove this
+
+      newLike: false,
+      newFit: false,
+      newMessage: false,
+            
     };
   }
 
@@ -54,8 +59,8 @@ export class SettingScreen extends React.Component {
                   trackColor={{ false: "white", true: "#C0C0C0" }}
                   thumbColor="#8B008B"
                   ios_backgroundColor="white"
-                  onValueChange={(value) => this.setState({ trunOn: value })}
-                  value={this.state.trunOn}
+                  onValueChange={(value) => this.setState({ newMessage: value })}
+                  value={this.state.newMessage}
                 />
 
                 <Switch
@@ -63,8 +68,8 @@ export class SettingScreen extends React.Component {
                   trackColor={{ false: "white", true: "#C0C0C0" }}
                   thumbColor="#8B008B"
                   ios_backgroundColor="white"
-                  onValueChange={(value) => this.setState({ trunOn: value })}
-                  value={this.state.trunOn}
+                  onValueChange={(value) => this.setState({ newFit: value })}
+                  value={this.state.newFit}
                 />
 
                 <Switch
@@ -72,8 +77,8 @@ export class SettingScreen extends React.Component {
                   trackColor={{ false: "white", true: "#C0C0C0" }}
                   thumbColor="#8B008B"
                   ios_backgroundColor="white"
-                  onValueChange={(value) => this.setState({ toggle: value })}
-                  value={this.state.toggle}
+                  onValueChange={(value) => this.setState({ newLike: value })}
+                  value={this.state.newLike}
                 />
               </Right>
             </View>
