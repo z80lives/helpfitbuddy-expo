@@ -14,9 +14,9 @@ const LikeView = ({numLikes}) => (
 );
 
 
-const FitView = ({num}) => (
+const GymView = ({num}) => (
   <Container>
-    <Text>{num} fit.</Text>
+    <Text>No gyms available. </Text>
   </Container>
 );
 
@@ -102,8 +102,8 @@ export class ActivityScreen extends Component {
               numLikes={123}
             />
           </Tab>
-          <Tab heading="Fits">
-            <FitView 
+          <Tab heading="Gyms">
+            <GymView 
               num={213}
             />
           </Tab>

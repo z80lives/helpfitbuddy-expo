@@ -5,6 +5,9 @@ import LoginScreen from './screens/login/login.jsx';
 import SignupScreen from './screens/signup/signup.jsx';
 import HomeScreen from './screens/home/home.jsx';
 
+import AddGymScreen from "./screens/admin/addGym";
+import AdminScreen from "./screens/admin/admin";
+
 import {ChatWindow} from "./screens/home/chat/chatWindow";
 import SettingScreen from './screens/home/profile/Setting/setting.jsx';
 
@@ -93,7 +96,20 @@ class App extends React.Component{
 			    hideNavBar={false}
 			    key="viewProfile"
 			    title="View Profile"
+			/>
 
+			<Scene
+			    component={AddGymScreen}
+			    hideNavBar={false}
+			    key="addGym"
+			    title="Add Gym"
+			/>
+
+			<Scene
+			    component={AdminScreen}
+			    hideNavBar={false}
+			    key="admin"
+			    title="Admin"
 			/>
 
 		    </Stack>

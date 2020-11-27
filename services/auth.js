@@ -9,11 +9,11 @@ export class AuthService extends APIService{
 	);
     }
 
-    register(name, username, password, dob, type){
-	return this.post(
-	    ["user", "register"],
-	    {name, username, password, dob, type}
-	);
+    register(name, username, password, dob, type, country, occupation, bio){
+		return this.post(
+			["user", "register"],
+			{name, username, password, dob, type, country, occupation, bio}
+		);
     }
 
     loginState(){

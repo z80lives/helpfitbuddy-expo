@@ -8,9 +8,9 @@ export class GymUserService extends APIService{
     }
     
     getUser(){
-	return this.get(
-	    ["login", "state"]
-	);
+		return this.get(
+			["login", "state"]
+		);
     }
 
     setProfilePicture(image){
@@ -35,10 +35,10 @@ export class GymUserService extends APIService{
     }
     
     setActivities(activities){
-	console.log("Token", this.getToken());
-	return this.post(
-	    ["gymuser", "activities"],
-	    {activities}
-	);
+		console.log("Token", this.getToken());
+		return this.post(
+			["gymuser", "activities"],
+			{activities}
+		);
     }
 }

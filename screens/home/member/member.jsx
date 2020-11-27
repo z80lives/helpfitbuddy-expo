@@ -1,5 +1,5 @@
 import React from "react";
-import {Container, Text, Grid, Col, Row} from "native-base";
+import {Container, Text, Grid, Col, Row, Spinner, View} from "native-base";
 import {StyleSheet} from "react-native";
 
 
@@ -61,13 +61,15 @@ export class MemberScreen extends React.Component{
 	if(!this.state.loadComplete){
 	    return(
 		<Container>
-		    <Text>Loading</Text>
+		     <Spinner color='blue' />
 		</Container>
 	    );
 	}if(this.state.isEmpty){
 	    return(
-		<Container>
-		    <Text>No neighbours nearby </Text>
+		<Container style={{alignContent: "center", justifyContent: 'center', flex: 1}}>
+			<View style={{alignContent: "center", justifyContent: 'center', flex: 1}}>
+				<Text style={{marginLeft: 100}}>No neighbours nearby </Text>
+			</View>			
 		</Container>
 	    );
 	}else

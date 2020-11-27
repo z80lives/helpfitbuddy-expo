@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Grid, Row, Text, View, Icon } from "native-base";
 import { Image, StyleSheet } from "react-native";
 
+import {connect} from "react-redux";
+
 export class ViewProfileScreen extends React.Component {
   render() {
     return (
@@ -9,12 +11,12 @@ export class ViewProfileScreen extends React.Component {
         <Grid>
           <Row>
             <Image
-              source={require("../../../../res/hothaifa.jpg")}
+              source={{uri:this.props.user.image}}
               style={styles.imageStyle}
             />
           </Row>
           <Row>
-            <Text style={styles.textStyle}>Hothaifa Alhammadi, 27</Text>
+            <Text style={styles.textStyle}>{this.props.user.name},  27</Text>
             <View>
               <Text style={{ top: 50, right: 180 }}>
                 <Icon
@@ -22,7 +24,7 @@ export class ViewProfileScreen extends React.Component {
                   name="world-o"
                   type="Fontisto"
                 />
-                Yemen
+                {this.props.user.country}
               </Text>
 
               <Text style={{ top: 65, right: 180 }}>
@@ -31,7 +33,7 @@ export class ViewProfileScreen extends React.Component {
                   name="wallet-travel"
                   type="MaterialCommunityIcons"
                 />
-                Student
+                {this.props.user.occupation}
               </Text>
             </View>
 
@@ -58,7 +60,7 @@ export class ViewProfileScreen extends React.Component {
                   color: 'gray'
                 }}
               >
-                Interested in ping pong, basketball, MMA.....
+              {this.props.user.bio}                
               </Text>
             </View>
           </Row>
@@ -68,7 +70,11 @@ export class ViewProfileScreen extends React.Component {
   }
 }
 
-export default ViewProfileScreen;
+const mapStateToProps = ({authReducer}) => ({
+  user: authReducer.user  
+});
+
+export default connect(mapStateToProps, {})(ViewProfileScreen);
 
 const styles = StyleSheet.create({
   imageStyle: {

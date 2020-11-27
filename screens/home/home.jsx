@@ -68,7 +68,7 @@ class PhotoPicker extends Component{
 
 	 this.setState({selectedImage: {uri: pickerResult.uri},
 			imgb64: imgbase64
-		       });	 
+		    });	 
      }
 
     handleSave = () => {
@@ -115,7 +115,7 @@ class PhotoPicker extends Component{
 
 class HomeScreen extends Component {
     state={
-	currentPage: 2, //0
+	currentPage: 0,
 	showActivityList: false,
 	showPictureSet: false
     }

@@ -17,8 +17,8 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 export class ProfileScreen extends React.Component {
     clickLogout = () =>{
-	console.log("Logout action called");
-	this.props.logoutAction();
+		console.log("Logout action called");
+		this.props.logoutAction();
     }
 
     componentDidMount(){
@@ -47,10 +47,10 @@ export class ProfileScreen extends React.Component {
 				    </Text>
 					<Text style={styles.typeNameStyle}>{this.props.user.type}</Text>					
 				    <Button
-					rounded					
-					onPress={() => Actions.viewProfile()}
+						rounded					
+						onPress={() => Actions.viewProfile()}
 				    >
-					<Text style={{ color: "#7f7f9f" }}>View Profile</Text>
+						<Text style={{ color: "#7f7f9f" }}>View Profile</Text>
 				    </Button>
 				    </Col>
 				</Row>
@@ -104,16 +104,21 @@ export class ProfileScreen extends React.Component {
 
 				
 				<Col style={{justifyContent: "center", alignItems: "center"}}>
-				    <View>
-				    <Button style={styles.circleButton2}>
+				{this.props.user.type=="gymadmin" &&
+				    <View>					
+				    <Button style={styles.circleButton2}
+						onPress={()=>{ Actions.addGym() }}
+					>
 					<Icon
 					    style={styles.iconStyle}
 					    name="pencil-alt"
-					    type="FontAwesome"
+					    type="FontAwesome5"
 					/>
 				    </Button>
-					<Text style={{left: 5, top:10}}>Edit Profile</Text>
+					
+					<Text style={{left: 5, top:10}}>Manage Gym</Text>					
 				    </View>
+				}
 				</Col>							
 			    </Row>
 			    
@@ -122,8 +127,17 @@ export class ProfileScreen extends React.Component {
 		</Grid>
 		<Card style={styles.bottomCard}>          
 		    <Row style={{justifyContent: "center"}}>
-			<Button style={styles.logoutButtonStyle} onPress={this.clickLogout}>
+			<Button 				
+				style={styles.logoutButtonStyle, {
+				width: "80%", 
+				color:"red",
+				backgroundColor: "#a03250",
+				justifyContent: "center",
+				alignContent: "center",
+				margin: 5				
+				}}  onPress={this.clickLogout}>
 			    <Icon style={styles.iconStyle4}  name="logout" type="MaterialCommunityIcons" />
+				<Text>Logout</Text>
 			</Button>
 		    </Row>
 		</Card>

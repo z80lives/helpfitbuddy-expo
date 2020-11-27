@@ -3,7 +3,6 @@ import {Container, Text, View, Card} from "native-base";
 
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
-
 /*
 const items = {
       '2020-11-16': [{name: 'item 1 - any js object'}],
