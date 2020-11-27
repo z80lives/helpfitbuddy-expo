@@ -115,7 +115,7 @@ class PhotoPicker extends Component{
 
 class HomeScreen extends Component {
     state={
-	currentPage: 0,
+	currentPage: 2, //0
 	showActivityList: false,
 	showPictureSet: false
     }
@@ -143,7 +143,12 @@ class HomeScreen extends Component {
 	    console.log("no profile picture saved");
 	    this.gymUserServices.getProfilePicture()
 		.then(response => {
-		    this.props.setProfilePictureAction(response.image);
+		    if(response.image == null){
+			console.log("No profile picture set");
+			this.setState({showPictureSet: true});
+		    }else{
+			this.props.setProfilePictureAction(response.image);
+		    }
 		});
 	}
     }

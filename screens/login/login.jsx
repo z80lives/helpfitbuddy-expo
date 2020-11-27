@@ -47,7 +47,7 @@ class LoginScreen extends Component {
 	this.authServices.login(this.state.username, this.state.password)	
 	    .then( (response) => {
 		console.log("Successfully logged in!", response);
-
+		
 		if(response.token){
 		    this.authServices.setToken(response.token);
 		    this.authServices.loginState()

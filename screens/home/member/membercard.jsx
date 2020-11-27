@@ -2,10 +2,10 @@ import React from "react";
 import {Card, Text, Container, Icon, Button} from "native-base";
 import {Image, StyleSheet} from "react-native";
 
-export const MemberCard = ({name, age, distance, imageSrc}) => (
+export const MemberCard = ({name, age, distance, image}) => (
     <Container>  	
 	<Card style={styles.cardStyle}>
-	    <Image style={styles.imageStyle} source={imageSrc}/>
+	    <Image style={styles.imageStyle} source={{uri: image}}/>
 	    <Button style={styles.floatingLikeButton}><Icon name="like" type="SimpleLineIcons" ></Icon></Button>
 	    <Text style={styles.designText}>{name}, {age}</Text>
 	    <Text style={styles.locationStyle}><Icon style={styles.locationStyle} name="location-pin" type="Entypo" />{distance} km</Text>

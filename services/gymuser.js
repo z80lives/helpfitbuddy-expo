@@ -27,6 +27,12 @@ export class GymUserService extends APIService{
 	    ["gymuser","profile_picture"]
 	);
     }
+
+    getNeighbors(){
+	return this.get(
+	    ["gymuser","neighbors"]
+	);
+    }
     
     setActivities(activities){
 	console.log("Token", this.getToken());
