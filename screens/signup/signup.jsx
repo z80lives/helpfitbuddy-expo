@@ -11,12 +11,12 @@ class SignupScreen extends Component{
 	authServices = new AuthService();
 	
     state = {
-		name:"Mohamed Shaatha Ibrahim",
-		username:"shath",
-		password:"1234",
-		password2:"1234",
-		occupation: "Student",
-		bio: "Hello. My name is Ibrahim.",
+		name:"",
+		username:"",
+		password:"",
+		password2:"",
+		occupation: "",
+		bio: "",
 		country: undefined,
 		dob: new Date(),
 		isAdmin: false
