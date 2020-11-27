@@ -18,10 +18,18 @@ const setActivitiesAction = (activities) => ({
     }
 });
 
+const setProfilePictureAction = (img) => ({
+    type: "SET_PROFILE_PICTURE",
+    payload: {
+	image: img
+    }
+})
+
 export const auth = {
     loginAction,
     logoutAction,
-    setActivitiesAction
+    setActivitiesAction,
+    setProfilePictureAction
 };
 
 export default auth;

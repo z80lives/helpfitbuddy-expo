@@ -12,10 +12,13 @@ const authReducer = (state = initialState, {type, payload}) => {
       return {...state, user: payload.user, isAuthenticated: true, token: payload.token};
   case "LOGOUT":
       return {...state, user: null, isAuthenticated: false, token: null};
-    default:
-      return state;
   case "UPDATE_ACTIVITIES":
       return {...state, user: {...state.user, activities: payload.activities}};
+  case "SET_PROFILE_PICTURE":
+      return {...state, user: {...state.user, image: payload.image}};
+  default:
+      return state;
+
   }
 };
 

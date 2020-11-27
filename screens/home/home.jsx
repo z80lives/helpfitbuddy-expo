@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
+import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text,
+	 View, Card
+       } from 'native-base';
+
+import {Image, Alert} from 'react-native';
 
 import {MemberScreen} from "./member/member.jsx";
 import {ActivityScreen} from "./activities/activites.jsx";
@@ -12,10 +16,16 @@ import {Actions, ActionConst} from "react-native-router-flux";
 //import {ActivityScreen} from "./activities/activites.jsx";
 //import ActivityScreen from "/activites/activites.jsx";
 import {GymUserService} from "../../services/gymuser.js";
+//import {AuthService} from "../../services/auth.js";
 
 import ActivitiesListScreen from "../activitiesList/activitiesList";
 
+
+import {auth} from "../../redux/actions/auth";
+//used by photo picker component
 //import PhotoUpload from 'react-native-photo-upload';
+import * as ImagePicker from 'expo-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
 
 class BodyContent extends React.Component{
     render(){
@@ -34,12 +44,83 @@ class BodyContent extends React.Component{
     }
 }
 
+class PhotoPicker extends Component{
+    gymServices=new GymUserService();
+    state = {
+	selectedImage: require("../../res/blank.png"),
+	imgb64: null
+    }
+     openImagePickerAsync = async () => {
+	 let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+	 
+	 if (permissionResult.granted === false) {
+	     Alert("Permission to access camera roll is required!");
+	return;
+    }
+
+	 let pickerResult = await ImagePicker.launchImageLibraryAsync({
+	     base64: true,
+	     allowsEditing: false,
+	     aspect: [4, 3]
+	 });
+	 console.log(pickerResult);
+	 const imgbase64 = pickerResult? `data:image/jpg;base64,${pickerResult.base64}`:null;
+
+	 this.setState({selectedImage: {uri: pickerResult.uri},
+			imgb64: imgbase64
+		       });	 
+     }
+
+    handleSave = () => {
+	this.gymServices.setProfilePicture(this.state.imgb64)
+	    .then(response => {
+		this.props.onSave(this.state.imgb64);
+	    }).catch(msg => {
+		console.error(msg);
+	    });	 
+    }
+    
+    render(){
+	return (
+	    <View style={{
+		      justifyContent:'center',
+		      flex: 1,
+		      alignItems: 'center'
+			 }}>
+		<Card style={{padding: 15}}>
+		<Image
+			source={this.state.selectedImage}
+		    width={50}
+		    height={50}
+		    style={{width:200, height:200, resizeMode: 'stretch'}}
+		/>
+		    <View style={{justifyContent: 'center', alignItems:'center',
+				  margin: 5}}>
+			<Button onPress={this.openImagePickerAsync} width={"100%"} >
+			    <Text >Pick a photo</Text>
+			</Button>
+
+		    </View>
+		    <View style={{justifyContent: 'center', alignItems:'center',
+				  margin: 5}}>		    
+			<Button onPress={this.handleSave} width={"100%"}>
+			    <Text>Save</Text>
+			</Button>
+		    </View>
+		    </Card>
+	    </View>
+	);
+    }
+}
+
 class HomeScreen extends Component {
     state={
 	currentPage: 0,
 	showActivityList: false,
 	showPictureSet: false
     }
+
+    gymUserServices = new GymUserService();
 
     clickNav = (num) => {
 	this.setState({currentPage: num})
@@ -52,24 +133,46 @@ class HomeScreen extends Component {
     }
 
     fetchActivities = ()=>{
-	if(this.props.user.activities.length == 0){
+	if(this.props.user.activities.length == 0){	   
 	    this.setState({showActivityList: true});
+	}
+    }
+
+    checkProfilePicture = () => {
+	if(!this.props.user.image){
+	    console.log("no profile picture saved");
+	    this.gymUserServices.getProfilePicture()
+		.then(response => {
+		    this.props.setProfilePictureAction(response.image);
+		});
 	}
     }
 
     componentDidMount(){
 	this.fetchActivities();
+	this.checkProfilePicture();
 	this.authRedirect();
     }
     
     componentDidUpdate(){
 	this.authRedirect();
     }
+
+    handlePhotoUpdate = (img) => {
+	//console.log("Image saved", img);
+	console.log(this.props);
+	this.props.setProfilePictureAction(img);
+	this.setState({showPictureSet: false});
+    }
     
     render() {
 	if(this.state.showActivityList){
 	    return(<ActivitiesListScreen
 		       onExit={()=>{this.setState({showActivityList: false})}}
+		   />);
+	}else if(this.state.showPictureSet){
+	    return(<PhotoPicker
+		       onSave={this.handlePhotoUpdate}
 		   />);
 	}else
 	return (
@@ -113,4 +216,4 @@ const mapStateToProps = ({authReducer}) => ({
     user: authReducer.user
 });
 
-export default connect(mapStateToProps, null)(HomeScreen);
+export default connect(mapStateToProps, {...auth})(HomeScreen);

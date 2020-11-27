@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import {
     Container,
     Text,
@@ -22,7 +22,6 @@ export class ProfileScreen extends React.Component {
     }
 
     componentDidMount(){
-	console.log("props", this.props);
     }
     
     render() {
@@ -34,7 +33,11 @@ export class ProfileScreen extends React.Component {
 				<Row>
 				    <Col style={{justifyContent: "center", paddingLeft: 10}} size={1}>
 					<Button style={styles.thumbnailButton} >
+					    {!this.props.user.image?
 					    <Icon name="person" type="Octicons" />
+					     :
+					     <Image source={{uri: this.props.user.image}} style={{resizeMode: 'stretch', width:120, height: 120, borderRadius: 110, overflow:"hidden"}}/>
+					    }
 					</Button>
 				    </Col>
 				
@@ -219,7 +222,7 @@ export class ProfileScreen extends React.Component {
 }
 
 const mapStateToProps = ({authReducer}) => ({
-    user: authReducer.user 
+    user: authReducer.user
 });
 
 export default connect(mapStateToProps, {...auth})(ProfileScreen);

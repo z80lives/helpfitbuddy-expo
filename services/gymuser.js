@@ -13,6 +13,21 @@ export class GymUserService extends APIService{
 	);
     }
 
+    setProfilePicture(image){
+	return this.post(
+	    ["gymuser", "profile_picture"],
+	    {
+		base64: image
+	    }
+	);
+    }
+
+    getProfilePicture(){
+	return this.get(
+	    ["gymuser","profile_picture"]
+	);
+    }
+    
     setActivities(activities){
 	console.log("Token", this.getToken());
 	return this.post(
