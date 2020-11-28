@@ -11,8 +11,9 @@ import {
   Text,
   View,
   Toast,
-    Root,
-    Spinner
+  Root,
+  Spinner,
+  Icon,
 } from "native-base";
 import { Actions, ActionConst } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -23,8 +24,8 @@ import { AuthService } from "../../services/auth.js";
 class LoginScreen extends Component {
   authServices = new AuthService();
   state = {
-    username: "132213",
-    password: "123123",
+    username: "",
+    password: "",
     loginLoading: false,
     loginMessage: null,
   };
@@ -46,54 +47,47 @@ class LoginScreen extends Component {
   componentDidUpdate() {
     this.authRedirect();
   }
-    makeToast(msg){
-	Toast.show({
-            text: msg,
-            position: "bottom",
-            duration: 3000,
-        });
-    }
+  makeToast(msg) {
+    Toast.show({
+      text: msg,
+      position: "bottom",
+      duration: 3000,
+    });
+  }
 
-    clickLogin = () => {
-	this.setState({ loginLoading: true });
+  clickLogin = () => {
+    this.setState({ loginLoading: true });  //disable button for loading
 
     const validUsername = this.state.username.length > 0;
     const validPassword = this.state.password.length > 0;
 
     if (validUsername && validPassword) {
-
       this.authServices
         .login(this.state.username, this.state.password)
         .then((response) => {
-            console.log( "Here 2", this.state.username, this.state.password);
+          console.log("Here 2", this.state.username, this.state.password);
           if (response.token != null) {
             this.authServices.setToken(response.token);
             this.authServices
               .loginState()
               .then((r) => {
-                  console.log("Login state", r);
-		  this.makeToast(r.message);
+                console.log("Login state", r);
+                this.makeToast(r.message);
                 this.setState({ loginLoading: false });
                 this.props.loginAction(r.user, response.token);
               })
               .catch((msg, err) => {
-                Toast.show({
-                  text: msg,
-                  position: "bottom",
-                  duration: 3000,
-                });
-                console.log( "Failed", this.state.username);
-                Toast.show({
-                  text: "Ïnvalid username or password",
-                  position: "bottom",
-                  duration: 3000,
-                });
+                this.makeToast(msg);
+                console.log("Failed", this.state.username);                
                 this.props.logoutAction();
-                  this.setState({ loginLoading: false, loginMessage: msg });
-		  this.makeToast(msg);
+                this.setState({ loginLoading: false, loginMessage: msg });
+                this.makeToast(msg);
               });
           } else {
-              this.setState({ loginLoading: false, loginMessage: "Server Error:Token not recieved" });
+            this.setState({
+              loginLoading: false,
+              loginMessage: "Server Error:Token not recieved",
+            });
           }
 
           //this.authServices.setToken(response.token);
@@ -102,25 +96,18 @@ class LoginScreen extends Component {
         .catch((msg, err, r) => {
           //console.error("Login Failed:", msg);
           //console.error("Error", msg);
-          //console.error("Error", msg, err, r);
-            this.setState({ loginLoading: false, loginMessage: msg });
-	    this.makeToast(msg);
-          console.log("Failed", msg);
+          //console.error("Error", msg, err, r);          
+          this.setState({ loginLoading: false, loginMessage: msg });
+          this.makeToast(msg);
         });
     } else {
       if (!validUsername) {
-        Toast.show({
-          text: "Invalid Username",
-          position: "bottom",
-          duration: 3000,
-        });
+        this.makeToast("Username cannot be  empty");
+        this.setState({ loginLoading: false });
       }
       if (!validPassword) {
-        Toast.show({
-          text: "Invalid Password",
-          position: "bottom",
-          duration: 3000,
-        });
+        this.makeToast("Password cannot be empty.")
+        this.setState({ loginLoading: false });
       }
     }
     //this.authRedirect();
@@ -150,6 +137,11 @@ class LoginScreen extends Component {
                     this.setState({ username: val });
                   }}
                 />
+
+                {this.state.username.length ===0 &&
+                <Icon name="close-circle" />
+                  }
+                
               </Item>
               <Item
                 regular
@@ -165,6 +157,9 @@ class LoginScreen extends Component {
                     this.setState({ password: val });
                   }}
                 />
+                {this.state.password.length ===0 &&
+                <Icon name="close-circle" />
+                  }
               </Item>
             </Form>
 
@@ -172,13 +167,10 @@ class LoginScreen extends Component {
               full
               warning
               style={{ width: 380, left: 17, borderRadius: 5 }}
-		onPress={this.clickLogin}
-		disabled={this.state.loginLoading}
+              onPress={this.clickLogin}
+              disabled={this.state.loginLoading}
             >
-		{this.state.loginLoading?  <Spinner />
-		 :
-		 <Text> Login </Text>
-		}
+              {this.state.loginLoading ? <Spinner /> : <Text> Login </Text>}
             </Button>
 
             {this.state.loginMessage ? (
