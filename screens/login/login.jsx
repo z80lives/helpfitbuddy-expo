@@ -11,7 +11,8 @@ import {
   Text,
   View,
   Toast,
-  Root,
+    Root,
+    Spinner
 } from "native-base";
 import { Actions, ActionConst } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -22,8 +23,8 @@ import { AuthService } from "../../services/auth.js";
 class LoginScreen extends Component {
   authServices = new AuthService();
   state = {
-    username: "",
-    password: "",
+    username: "132213",
+    password: "123123",
     loginLoading: false,
     loginMessage: null,
   };
@@ -45,30 +46,33 @@ class LoginScreen extends Component {
   componentDidUpdate() {
     this.authRedirect();
   }
+    makeToast(msg){
+	Toast.show({
+            text: msg,
+            position: "bottom",
+            duration: 3000,
+        });
+    }
 
-  clickLogin = () => {
+    clickLogin = () => {
+	this.setState({ loginLoading: true });
+
     const validUsername = this.state.username.length > 0;
     const validPassword = this.state.password.length > 0;
 
     if (validUsername && validPassword) {
-      this.setState({ loginLoading: true });
 
-      console.log( "Here 1", this.state.username, this.state.password);
       this.authServices
         .login(this.state.username, this.state.password)
         .then((response) => {
-          console.log( "Here 2", this.state.username, this.state.password);
+            console.log( "Here 2", this.state.username, this.state.password);
           if (response.token != null) {
             this.authServices.setToken(response.token);
             this.authServices
               .loginState()
               .then((r) => {
-                Toast.show({
-                  text: r.message,
-                  position: "bottom",
-                  duration: 3000,
-                });
-                console.log("Login state", r);
+                  console.log("Login state", r);
+		  this.makeToast(r.message);
                 this.setState({ loginLoading: false });
                 this.props.loginAction(r.user, response.token);
               })
@@ -85,11 +89,11 @@ class LoginScreen extends Component {
                   duration: 3000,
                 });
                 this.props.logoutAction();
-                this.setState({ loginLoading: false, loginMessage: msg });
-                console.log("Failed", msg);
+                  this.setState({ loginLoading: false, loginMessage: msg });
+		  this.makeToast(msg);
               });
           } else {
-            this.setState({ loginLoading: false, loginMessage: "Msg" });            
+              this.setState({ loginLoading: false, loginMessage: "Server Error:Token not recieved" });
           }
 
           //this.authServices.setToken(response.token);
@@ -99,7 +103,8 @@ class LoginScreen extends Component {
           //console.error("Login Failed:", msg);
           //console.error("Error", msg);
           //console.error("Error", msg, err, r);
-          this.setState({ loginLoading: false, loginMessage: msg });
+            this.setState({ loginLoading: false, loginMessage: msg });
+	    this.makeToast(msg);
           console.log("Failed", msg);
         });
     } else {
@@ -118,7 +123,6 @@ class LoginScreen extends Component {
         });
       }
     }
-
     //this.authRedirect();
   };
 
@@ -168,9 +172,13 @@ class LoginScreen extends Component {
               full
               warning
               style={{ width: 380, left: 17, borderRadius: 5 }}
-              onPress={this.clickLogin}
+		onPress={this.clickLogin}
+		disabled={this.state.loginLoading}
             >
-              <Text> Login </Text>
+		{this.state.loginLoading?  <Spinner />
+		 :
+		 <Text> Login </Text>
+		}
             </Button>
 
             {this.state.loginMessage ? (
