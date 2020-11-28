@@ -1,30 +1,49 @@
 import React from "react";
-import { Container, Text, View, Input, Item, Form, Button } from "native-base";
+import { Container, Content, Text, View, Input, Item, Form, Button, Spinner } from "native-base";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet, modalStyleIOS } from "react-native";
+
+import { connect } from "react-redux";
+
+import {GymUserService} from "../../services/gymuser";
+
 
 export class AddGymScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      dateText: "Enter open Time",
-      isVisible: false,
-      chosenDate: "",
+	dateText: "Enter open Time",
+	isVisible: false,
+	chosenDate: "",
+	currentSelection: "open",
+	openTimeText: "Enter open time",
+	closeTimeText: "Enter close time"
     };
   }
 
-  handlePicker = (datetime) => {
-    const formatDate = new Intl.DateTimeFormat("default", {
+    handlePicker = (datetime) => {
+
+	console.log("datetime", datetime.toLocaleTimeString());
+ /*    const formatDate = new Intl.DateTimeFormat("default", {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-    }).format(datetime);
+    }).format(datetime);      */
+	const formatDate = datetime.toLocaleTimeString();
+	const isVisible = false;
 
-    this.setState({
-      dateText: formatDate,
-      isVisible: false,
-    });
+	if(this.state.currentSelection == "open"){
+	    this.setState({
+		openTimeText: formatDate,
+		isVisible
+	    });
+	}else{
+	    this.setState({
+		closeTimeText: formatDate,
+		isVisible: false
+	    });
+	}
   };
 
   hidePicker = (datetime) => {
@@ -38,10 +57,10 @@ export class AddGymScreen extends React.Component {
       isVisible: true,
     });
   };
+    
   render() {
-    return (
-      <Container>
-        <Container>
+      return (
+	  <>
           <View style={styles.container}>
             <View>
               <Text style={{ fontSize: 35, marginBottom: 50 }}>CREATE GYM</Text>
@@ -54,19 +73,20 @@ export class AddGymScreen extends React.Component {
 
                 <Text>{this.state.chosenDate}</Text>
                 <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.showPicker}
+                    style={styles.button}
+                    onPress={ () => { this.setState({isVisible: true, currentSelection: "open"})} }
                 >
-                  <Text style={styles.text}> {this.state.dateText} </Text>
+                  <Text style={styles.text}> {this.state.openTimeText} </Text>
                 </TouchableOpacity>
 
                 <Text>{this.state.chosenDate}</Text>
 
                 <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.showPicker}
+                  style={styles.button}                    
+		    onPress={ () => { this.setState({isVisible: true, currentSelection: "close"})} }
+
                 >
-                  <Text style={styles.text}> {this.state.dateText} </Text>
+                  <Text style={styles.text}> {this.state.closeTimeText} </Text>
                 </TouchableOpacity>
 
                 <Item regular style={(styles.button, { marginTop: 15 })}>
@@ -89,13 +109,66 @@ export class AddGymScreen extends React.Component {
               <Text style={{ color: "black" }}> Create </Text>
             </Button>
           </View>
-        </Container>
-      </Container>
+	  </>
     );
   }
 }
 
-export default AddGymScreen;
+//export default connect(null, {})(AddGymScreen);
+
+class ManageGym extends React.Component{
+    gymServices = new GymUserService();
+    state={
+	loadComplete: false,
+	ownsGym: false
+    };
+
+    loadGymData = () =>{
+	this.gymServices.getOwnGym(this.props.user)
+	    .then( r => {
+		const ownsGym = r.data != undefined;
+		this.setState({loadComplete: true, ownsGym});		
+	    });
+    }    
+    
+    componentDidMount(){
+	this.loadGymData();
+    }
+    
+    render(){
+	return(
+	    <Container>
+		<Content>
+		    {!this.state.loadComplete &&
+		     <View style={{justifyContent: "center",
+				   alignItems: "center"}}
+		     >
+			 <Text>Loading</Text>
+			 <Spinner color="blue" />
+		     </View>
+		    }
+
+		    {this.state.loadComplete && this.state.ownsGym &&
+		     <View>
+			 <Text>Owns gym</Text>
+		     </View>
+		    }
+
+		    {this.state.loadComplete && !this.state.ownsGym &&
+		     <AddGymScreen
+		     />
+		    }
+		</Content>
+	</Container>
+	);
+    }
+}
+
+const mapStateToProps = ({authReducer}) => ({
+    user: authReducer.user
+});
+
+export default connect(mapStateToProps, {})(ManageGym);
 
 const styles = StyleSheet.create({
   container: {

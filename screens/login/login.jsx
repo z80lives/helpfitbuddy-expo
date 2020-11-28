@@ -22,10 +22,11 @@ import { auth } from "../../redux/actions/auth";
 import { AuthService } from "../../services/auth.js";
 
 class LoginScreen extends Component {
-  authServices = new AuthService();
+    authServices = new AuthService();
+    _ismounted = true;
   state = {
-    username: "",
-    password: "",
+    username: "shath",
+    password: "1234",
     loginLoading: false,
     loginMessage: null,
   };
@@ -37,12 +38,15 @@ class LoginScreen extends Component {
   };
 
   componentDidMount() {
-    this.authRedirect();
+      this.authRedirect();
+      this._ismounted = true;
   }
+ 
 
-  componentWillUnmount() {
-    Toast.toastInstance = null;
-  }
+    componentWillUnmount() {
+	this._ismounted = false;
+    	Toast.toastInstance = null;
+    }
 
   componentDidUpdate() {
     this.authRedirect();
@@ -57,7 +61,6 @@ class LoginScreen extends Component {
 
   clickLogin = () => {
     this.setState({ loginLoading: true });  //disable button for loading
-
     const validUsername = this.state.username.length > 0;
     const validPassword = this.state.password.length > 0;
 
@@ -72,15 +75,17 @@ class LoginScreen extends Component {
               .loginState()
               .then((r) => {
                 console.log("Login state", r);
-                this.makeToast(r.message);
-                this.setState({ loginLoading: false });
+                  this.makeToast(r.message);
+		  if(this._ismounted)
+                      this.setState({ loginLoading: false });
                 this.props.loginAction(r.user, response.token);
               })
               .catch((msg, err) => {
                 this.makeToast(msg);
                 console.log("Failed", this.state.username);                
-                this.props.logoutAction();
-                this.setState({ loginLoading: false, loginMessage: msg });
+                  this.props.logoutAction();
+		  if(this._ismounted)
+                      this.setState({ loginLoading: false, loginMessage: msg });
                 this.makeToast(msg);
               });
           } else {
@@ -96,8 +101,9 @@ class LoginScreen extends Component {
         .catch((msg, err, r) => {
           //console.error("Login Failed:", msg);
           //console.error("Error", msg);
-          //console.error("Error", msg, err, r);          
-          this.setState({ loginLoading: false, loginMessage: msg });
+            //console.error("Error", msg, err, r);
+	    if(this._ismounted)
+		this.setState({ loginLoading: false, loginMessage: msg });
           this.makeToast(msg);
         });
     } else {
@@ -112,6 +118,7 @@ class LoginScreen extends Component {
     }
     //this.authRedirect();
   };
+
 
   render() {
     return (

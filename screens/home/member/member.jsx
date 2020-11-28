@@ -29,6 +29,7 @@ const sortGridItems = (td) => {
 
 export class MemberScreen extends React.Component{
     gymUserServices = new GymUserService();
+    _ismounted = true;
     state={
 	personData: [],
 	loadComplete: false,
@@ -39,16 +40,26 @@ export class MemberScreen extends React.Component{
 	super(props);	
     }
 
+    componentDidMount() {    
+      this._ismounted = true;
+    }
+
+    componentWillUnmount() {
+	this._ismounted = false;    
+    }
+
     loadNeighbors = () => {
 	this.gymUserServices.getNeighbors().then(response => {
-	    this.setState({loadComplete: true});
+	    if(this._ismounted)
+		this.setState({loadComplete: true});
 	    if(response.data.length == 0){
 		console.log("No neighbours");
-		this.setState({isEmpty: true});
+		if(this._ismounted)
+		    this.setState({isEmpty: true});
 	    }else{
-		const sortedData = sortGridItems(response.data);	    
-		this.setState({personData: sortedData});
-		this.setState({isEmpty: false});
+		const sortedData = sortGridItems(response.data);
+		if(this._ismounted)
+		    this.setState({personData: sortedData, isEmpty: false});
 	    }
 	})
     }

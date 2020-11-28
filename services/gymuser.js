@@ -41,4 +41,27 @@ export class GymUserService extends APIService{
 			{activities}
 		);
     }
+
+    getOwnGym(user){
+	if(user.type=="gymadmin"){
+	    return this.get(
+		["gym", "user"]
+	    );
+	}else{
+	    console.error("User is not allowed to manage gyms");
+	    return new Promise(()=>{}, ()=>{});
+	}
+    }
+
+    addGym(user){
+	if(user.type=="gymadmin"){
+	    return this.post(
+		["gym"],
+		{}
+	    );
+	}else{
+	    console.error("User is not allowed to manage gyms");
+	    return new Promise(()=>{}, ()=>{});
+	}
+    }
 }

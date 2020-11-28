@@ -1,17 +1,25 @@
 import store from '../redux/store';
 
 export class APIService{
+    //host = "https://z80lives.net:5000";
     host = "http://192.168.0.145:5000";
     token = null;
     
     setToken(token){
-	console.log("Set Token", token);
+	//console.log("Set Token", token);
 	this.token = token;
     }
 
     getToken(){
-	console.log("STORE STATE", store.getState().authReducer.token);
+	//console.log("STORE TOKEN", store.getState().authReducer.token);
+	const storedToken = store.getState().authReducer.token;
+	if(storedToken != null)
+	    return storedToken;
 	return this.token;
+    }
+
+    getReduxStore(){
+	return store;
     }
 
     getHeader(){
@@ -69,7 +77,7 @@ export class APIService{
 		      }
 		      return r;
 		  }).catch( (error) => {
-		      console.error("HTTP Exception:", error);
+		      console.log("HTTP Exception:", error);
 		      console.log("host", this.host);
 		      console.log("action", actions);
 		      reject("HTTP API Exception occured", error);

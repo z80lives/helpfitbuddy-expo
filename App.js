@@ -18,6 +18,9 @@ import {Router, Stack, Scene} from 'react-native-router-flux';
 import {connect, Provider} from 'react-redux';
 import store from './redux/store';
 
+import {AuthService} from "./services/auth";
+
+
 //const ConnectedRouter = connect()(Router);
 import * as Font from 'expo-font';
 //import {Font} from "expo";
@@ -29,12 +32,16 @@ import {Root} from "native-base";
 const ConnectedRouter = connect()(Router);
 
 class App extends React.Component{
-
+    authServices = new AuthService();
     constructor(props) {
 	super(props);
 	this.state = {
 	    isReady: false,
 	};
+    }
+
+    state = {
+	refreshTimeout: null
     }
 
     async componentDidMount() {
@@ -44,12 +51,35 @@ class App extends React.Component{
 	    ...Ionicons.font,
 	});
 	this.setState({ isReady: true });
+	console.log("App Component mounted");
+	this.initRefreshTokens();
     }
 
+    componentDidUpdate(){
+	this.initRefreshTokens();
+    }
+
+    initRefreshTokens = ()=>{
+	if(this.state.refreshTimeout == null){
+	    console.log("Initialising refresh timeout");
+	    const refreshTimeout = setInterval( this.refreshTokens,
+					       5000);	    
+					    //10000);
+	    this.setState({refreshTimeout})	    
+	}	
+    }    
+
+    
+    refreshTokens = async () => {
+	(new AuthService()).refreshTokens();
+    }    
+	
+    
     render(){
 	if(!this.state.isReady){
 	    return <View></View>;
 	}
+
 	return(
 	    <Provider store={store}>		
 		<ConnectedRouter>
@@ -102,7 +132,7 @@ class App extends React.Component{
 			    component={AddGymScreen}
 			    hideNavBar={false}
 			    key="addGym"
-			    title="Add Gym"
+			    title="Manage Gym"
 			/>
 
 			<Scene
