@@ -47,51 +47,77 @@ class LoginScreen extends Component {
   }
 
   clickLogin = () => {
-    this.setState({ loginLoading: true });
+    const validUsername = this.state.username.length > 0;
+    const validPassword = this.state.password.length > 0;
 
-    Toast.show({
-      text: "Logging in",
-      buttonText: "Okay",
-      position: "bottom",
-      duration: 3000,
-    });
+    if (validUsername && validPassword) {
+      this.setState({ loginLoading: true });
 
-      const validUsername = this.state.username.length > 0;
-      const validPassword = this.state.password.length > 0;
+      console.log( "Here 1", this.state.username, this.state.password);
+      this.authServices
+        .login(this.state.username, this.state.password)
+        .then((response) => {
+          console.log( "Here 2", this.state.username, this.state.password);
+          if (response.token != null) {
+            this.authServices.setToken(response.token);
+            this.authServices
+              .loginState()
+              .then((r) => {
+                Toast.show({
+                  text: r.message,
+                  position: "bottom",
+                  duration: 3000,
+                });
+                console.log("Login state", r);
+                this.setState({ loginLoading: false });
+                this.props.loginAction(r.user, response.token);
+              })
+              .catch((msg, err) => {
+                Toast.show({
+                  text: msg,
+                  position: "bottom",
+                  duration: 3000,
+                });
+                console.log( "Failed", this.state.username);
+                Toast.show({
+                  text: "Ïnvalid username or password",
+                  position: "bottom",
+                  duration: 3000,
+                });
+                this.props.logoutAction();
+                this.setState({ loginLoading: false, loginMessage: msg });
+                console.log("Failed", msg);
+              });
+          } else {
+            this.setState({ loginLoading: false, loginMessage: "Msg" });            
+          }
 
-      if(validUsername && validPassword){
-	  this.authServices
-	      .login(this.state.username, this.state.password)
-	      .then((response) => {
-		  console.log("Successfully logged in!", response);
+          //this.authServices.setToken(response.token);
+        })
 
-		  if (response.token) {
-		      this.authServices.setToken(response.token);
-		      this.authServices
-			  .loginState()
-			  .then((r) => {
-			      console.log("Login state", r);
-			      this.setState({ loginLoading: false });
-			      this.props.loginAction(r.user, response.token);
-			  })
-			  .catch((msg, err) => {
-			      this.props.logoutAction();
-			      this.setState({ loginLoading: false, loginMessage: msg });
-			  });
-		  } else {
-		      this.setState({ loginLoading: false, loginMessage: "Msg" });
-		  }
-
-		  //this.authServices.setToken(response.token);
-	      })
-	      .catch((msg, err, r) => {
-		  //console.error("Login Failed:", msg);
-		  //console.error("Error", msg);
-		  console.error("Error", msg, err, r);
-		  this.setState({ loginLoading: false, loginMessage: msg });
-	      });
+        .catch((msg, err, r) => {
+          //console.error("Login Failed:", msg);
+          //console.error("Error", msg);
+          //console.error("Error", msg, err, r);
+          this.setState({ loginLoading: false, loginMessage: msg });
+          console.log("Failed", msg);
+        });
+    } else {
+      if (!validUsername) {
+        Toast.show({
+          text: "Invalid Username",
+          position: "bottom",
+          duration: 3000,
+        });
       }
-		  
+      if (!validPassword) {
+        Toast.show({
+          text: "Invalid Password",
+          position: "bottom",
+          duration: 3000,
+        });
+      }
+    }
 
     //this.authRedirect();
   };
@@ -143,7 +169,6 @@ class LoginScreen extends Component {
               warning
               style={{ width: 380, left: 17, borderRadius: 5 }}
               onPress={this.clickLogin}
-              disabled={this.state.loginLoading}
             >
               <Text> Login </Text>
             </Button>
