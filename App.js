@@ -5,18 +5,22 @@ import LoginScreen from './screens/login/login.jsx';
 import SignupScreen from './screens/signup/signup.jsx';
 import HomeScreen from './screens/home/home.jsx';
 
-import AddGymScreen from "./screens/admin/addGym";
+import ManageGymScreen from "./screens/admin/managegym";
 import AdminScreen from "./screens/admin/admin";
 
 import {ChatWindow} from "./screens/home/chat/chatWindow";
 import SettingScreen from './screens/home/profile/Setting/setting.jsx';
 
+import ViewMember from "./screens/home/member/viewMember";
 import AddEventScreen from "./screens/home/event/addEvent";
 
 
 import {Router, Stack, Scene} from 'react-native-router-flux';
 import {connect, Provider} from 'react-redux';
 import store from './redux/store';
+
+import {AuthService} from "./services/auth";
+
 
 //const ConnectedRouter = connect()(Router);
 import * as Font from 'expo-font';
@@ -30,12 +34,16 @@ import { event } from 'react-native-reanimated';
 const ConnectedRouter = connect()(Router);
 
 class App extends React.Component{
-
+    authServices = new AuthService();
     constructor(props) {
 	super(props);
 	this.state = {
 	    isReady: false,
 	};
+    }
+
+    state = {
+	refreshTimeout: null
     }
 
     async componentDidMount() {
@@ -45,12 +53,34 @@ class App extends React.Component{
 	    ...Ionicons.font,
 	});
 	this.setState({ isReady: true });
+	console.log("App Component mounted");
+	this.initRefreshTokens();
     }
 
+    componentDidUpdate(){
+	this.initRefreshTokens();
+    }
+
+    initRefreshTokens = ()=>{
+	if(this.state.refreshTimeout == null){
+	    console.log("Initialising refresh timeout");
+	    const refreshTimeout = setInterval( this.refreshTokens,
+					       10000);
+	    this.setState({refreshTimeout})	    
+	}	
+    }    
+
+    
+    refreshTokens = async () => {
+	(new AuthService()).refreshTokens();
+    }    
+	
+    
     render(){
 	if(!this.state.isReady){
 	    return <View></View>;
 	}
+
 	return(
 	    <Provider store={store}>		
 		<ConnectedRouter>
@@ -100,10 +130,10 @@ class App extends React.Component{
 			/>
 
 			<Scene
-			    component={AddGymScreen}
+			    component={ManageGymScreen}
 			    hideNavBar={false}
 			    key="addGym"
-			    title="Add Gym"
+			    title="Manage Gym"
 			/>
 
 			<Scene
@@ -111,6 +141,13 @@ class App extends React.Component{
 			    hideNavBar={false}
 			    key="admin"
 			    title="Admin"
+			/>
+
+			<Scene
+			    component={ViewMember}
+			    hideNavBar={false}
+			    key="viewMember"
+			    title="Member"			    
 			/>
 
 			<Scene		

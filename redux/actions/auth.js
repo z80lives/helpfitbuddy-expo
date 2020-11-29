@@ -6,6 +6,13 @@ export const loginAction = (user, token) => ({
   },
 });
 
+export const refreshAction = (token) => ({
+    type: "TOKEN_REFRESH",
+    payload: {
+	token: token
+    }
+});
+
 const logoutAction = () => ({
     type: "LOGOUT",
     payload: {}
@@ -29,7 +36,8 @@ export const auth = {
     loginAction,
     logoutAction,
     setActivitiesAction,
-    setProfilePictureAction
+    setProfilePictureAction,
+    refreshAction
 };
 
 export default auth;

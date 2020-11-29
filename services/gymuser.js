@@ -47,4 +47,36 @@ export class GymUserService extends APIService{
 			{activities}
 		);
     }
+
+    getOwnGym(user){
+	if(user.type=="gymadmin"){
+	    return this.get(
+		["gym", "user"]
+	    );
+	}else{
+	    console.error("User is not allowed to manage gyms");
+	    return new Promise(()=>{}, ()=>{});
+	}
+    }
+
+    getGymUser(_id){
+	return this.post(
+	    ["gymuser", "profile"],
+	    {_id}
+	)
+    }
+
+    updateLocation(location){
+	return this.post(
+	    ["gymuser", "location"],
+	    {location}
+	);
+    }
+
+    addGym(name, openTime, closeTime, longitude, latitude){
+	return this.post(
+	    ["gym"],
+	    {name, openTime, closeTime, location:{longitude, latitude}}
+	);
+    }
 }

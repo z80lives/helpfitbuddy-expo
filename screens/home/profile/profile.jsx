@@ -77,7 +77,7 @@ export class ProfileScreen extends React.Component {
             </Grid>
           </Row>
 
-          <Row size={3}>
+            <Row size={3} >
             <Grid style={{ elevation: 5 }}>
               <Row size={1}>
                 <Col style={{ justifyContent: "center", alignItems: "center" }}>

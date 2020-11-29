@@ -1,6 +1,7 @@
 import {ActionConst} from 'react-native-router-flux';
 import {combineReducers, createStore} from 'redux';
 import authReducer from "./auth";
+import gymReducer from "./gym";
 
 const sceneReducer = (state = {}, {type, scene}) => {
   switch (type) {
@@ -13,4 +14,4 @@ const sceneReducer = (state = {}, {type, scene}) => {
 
 
 
-export default combineReducers({sceneReducer, authReducer});
+export default combineReducers({sceneReducer, authReducer, gymReducer});

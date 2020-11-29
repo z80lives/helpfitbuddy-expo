@@ -1,8 +1,10 @@
 import React from "react";
-import { Container, Grid, Row, Text, View, Icon } from "native-base";
+import { Container,  Text, View, Icon, Card, H4 , Button} from "native-base";
 import { Image, StyleSheet } from "react-native";
 
 import { connect } from "react-redux";
+
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 export class ViewProfileScreen extends React.Component {
   componentDidMount() {
@@ -10,67 +12,88 @@ export class ViewProfileScreen extends React.Component {
   }
   render() {
     return (
-      <Container>
-        <Grid>
-          <Row>
-            <Image
-              source={{ uri: this.props.user.image }}
-              style={styles.imageStyle}
-            />
-          </Row>
-          <Row>
-            <Text style={styles.textStyle}>{this.props.user.name}, 27</Text>
-            <View>
-              <Text style={{ top: 50 }}>
-                <Icon
-                  style={{ fontSize: 15, color: "#800080" }}
-                  name="world-o"
-                  type="Fontisto"
-                />
-                {this.props.user.country}
-              </Text>
+	<Container>
+            <Grid >
+		<Row size={3}>
+		    <View style={{flex:1}}>
+			<Image
+			    source={{ uri: this.props.user.image }}
+			    style={styles.imageStyle}
+			/>
+		    </View>
+		</Row>
+		
+		<Row  size={1}>
+		    <View>
+		    <Text style={styles.textStyle}>{this.props.user.name}, 27</Text>
+		    <View style={{ flex:1}} >
+			<Text>
+			    <Icon
+				style={{ fontSize: 15, color: "#800080" }}
+				name="world-o"
+				type="Fontisto"
+			    />
+			    {this.props.user.country}
+			</Text>
+			
+			<Text>
+			    <Icon
+				style={{ fontSize: 15, color: "#800080" }}
+				name="wallet-travel"
+				type="MaterialCommunityIcons"
+			    />
+			    {this.props.user.occupation}
+			</Text>
+		    </View>
+		    </View>
+		</Row>
+	    
+		<Row size={1}>
+		    
+		    <View>
+			<Text
+			    style={{
+				fontWeight: "bold",
+				fontSize: 18,
+			    }}
+			>
+			    <Icon
+				style={{ fontSize: 15, color: "#800080" }}
+				name="person"
+				type="Fontisto"
+			    />
+			    About Me
+			</Text>
+			<Text
+			    style={{
+				color: "gray",
+			    }}
+			>
+			    {this.props.user.bio}
+			</Text>			
+		    </View>
+		</Row>		
 
-              <Text style={{ top: 65 }}>
-                <Icon
-                  style={{ fontSize: 15, color: "#800080" }}
-                  name="wallet-travel"
-                  type="MaterialCommunityIcons"
-                />
-                {this.props.user.occupation}
-              </Text>
-            </View>
+		<Row size={1.7}>
 
-            <View>
-              <Text
-                style={{
-
-                  top: 130,
-                  fontWeight: "bold",
-                  fontSize: 18,
-                  right: 150
-                }}
-              >
-                <Icon
-                  style={{ fontSize: 15, color: "#800080" }}
-                  name="person"
-                  type="Fontisto"
-                />
-                About Me
-              </Text>
-              <Text
-                style={{
-                  top: 140,
-                  color: "gray",
-                  right: 120
-
-                }}
-              >
-                {this.props.user.bio}
-              </Text>
-            </View>
-          </Row>
-        </Grid>
-      </Container>
+		    {!this.props.friendMode&&
+		    <Card style={{flex:1}}>
+			<Text>You have no friends</Text>
+		    </Card>
+		    }
+		    
+		    {this.props.friendMode && !this.props.notFriend &&
+		     <Card style={{flex:1}}>
+		     <Button disabled={this.props.friendRequestSent} >
+			 <Text>Send friend request</Text>
+		     </Button>
+		     </Card>
+		    }
+		     
+		</Row>
+		
+            </Grid>
+	</Container>
     );
   }
 }
@@ -83,10 +106,11 @@ export default connect(mapStateToProps, {})(ViewProfileScreen);
 
 const styles = StyleSheet.create({
   imageStyle: {
-    width: 415,
-    height: 338,
+    width: "100%",
+    height: "100%",
     borderWidth: 1,
-    borderColor: "gray",
+      borderColor: "gray",
+      resizeMode: "stretch",
   },
   textStyle: {
     fontSize: 18,

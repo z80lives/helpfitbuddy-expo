@@ -10,6 +10,7 @@ var guy1 = require ('../../../res/guy1.jpeg');
 import {GymUserService} from "../../../services/gymuser.js";
 import { ScrollView } from "react-native-gesture-handler";
 
+import { Actions } from "react-native-router-flux";
 /*
 const testData = [
     {_id: "1", name:"Hothaifa", age: "22", distance: "6", imageSrc: guy1},
@@ -31,6 +32,7 @@ const sortGridItems = (td) => {
 
 export class MemberScreen extends React.Component{
     gymUserServices = new GymUserService();
+    _ismounted = true;
     state={
 	personData: [],
 	loadComplete: false,
@@ -41,18 +43,32 @@ export class MemberScreen extends React.Component{
 	super(props);	
     }
 
+    componentDidMount() {    
+      this._ismounted = true;
+    }
+
+    componentWillUnmount() {
+	this._ismounted = false;    
+    }
+
     loadNeighbors = () => {
 	this.gymUserServices.getNeighbors().then(response => {
-	    this.setState({loadComplete: true});
+	    if(this._ismounted)
+		this.setState({loadComplete: true});
 	    if(response.data.length == 0){
 		console.log("No neighbours");
-		this.setState({isEmpty: true});
+		if(this._ismounted)
+		    this.setState({isEmpty: true});
 	    }else{
-		const sortedData = sortGridItems(response.data);	    
-		this.setState({personData: sortedData});
-		this.setState({isEmpty: false});
+		const sortedData = sortGridItems(response.data);
+		if(this._ismounted)
+		    this.setState({personData: sortedData, isEmpty: false});
 	    }
 	})
+    }
+
+    handleViewProfile = (data) => {
+	Actions.viewMember({data});
     }
 
     componentDidMount(){
@@ -85,7 +101,10 @@ export class MemberScreen extends React.Component{
 			    <Row style={styles.rowStyles} key={"cardRow_"+rowIndex}>
 				{row.map( (data, colIndex) =>
 				    <Col style={styles.colStyle} key={"cardCol_"+colIndex} >
-					<MemberCard {...data} key={data._id} />
+					<MemberCard
+					    {...data} key={data._id}
+					    onPress={()=> {this.handleViewProfile(data)} }
+					/>
 				    </Col>				 
 				)}
 			    </Row>
