@@ -1,12 +1,14 @@
 import React from "react";
-import {Container, Text, Grid, Col, Row, Spinner, View} from "native-base";
+import {Container, Text, Spinner, View} from "native-base";
 import {StyleSheet} from "react-native";
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 
 import {MemberCard} from "./membercard.jsx";
 var guy1 = require ('../../../res/guy1.jpeg');
 
 import {GymUserService} from "../../../services/gymuser.js";
+import { ScrollView } from "react-native-gesture-handler";
 
 /*
 const testData = [
@@ -74,8 +76,10 @@ export class MemberScreen extends React.Component{
 	    );
 	}else
 	return(
-	    <Container>
-		<Grid>
+	    <Container style={{flex:1}}>
+			
+		<Grid style={{flex:1}} size={1}>
+			<ScrollView>
 		    {
 			this.state.personData.map( (row, rowIndex) =>
 			    <Row style={styles.rowStyles} key={"cardRow_"+rowIndex}>
@@ -88,6 +92,7 @@ export class MemberScreen extends React.Component{
 			    
 			)
 		    }
+			</ScrollView>
 		</Grid>
 	    </Container>
 	);

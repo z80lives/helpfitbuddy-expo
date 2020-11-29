@@ -56,8 +56,8 @@ export class EventScreen extends Component{
 
 const ScheduleItem = (item) => (
     <View style={{justifyContent:"center", alignItems:"center"}}>
-	<Card style={{width: 200}}>
-	    <Text>{item.name}</Text>
+	<Card style={{width: 350, height: 100, borderRadius: 20, backgroundColor: "#CCCCFF"}}>
+	    <Text style={{marginLeft: 15, marginTop: 7, color: "blue"}}>{item.name}</Text>
 	</Card>
     </View>
 );
@@ -88,7 +88,7 @@ const AgendaItem = (props) => (
   // Specify how each item should be rendered in agenda
      renderItem={(item, firstItemInDay) => {return (<ScheduleItem {...item}></ScheduleItem>);}}
   // Specify how each date should be rendered. day can be undefined if the item is not first in that day.
-     renderDay={(day, item) => (<View><Text>{day ? day.day: 'item'}</Text></View>)}
+     renderDay={(day, item) => (<View><Text style={{marginLeft: 20, marginTop: 20}}>{day ? day.day: 'item'} -</Text></View>)}
   // Specify how empty date content with no items should be rendered
   renderEmptyDate={() => {return (<View><Text>Nothing for the day</Text></View>);}}
   // Specify how agenda knob should look like

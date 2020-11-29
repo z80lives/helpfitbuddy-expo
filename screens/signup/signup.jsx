@@ -83,7 +83,7 @@ class SignupScreen extends Component {
     	Actions.login();
     }).catch(err => {
 		this.makeToast("Cannot create user"); //not working
-		this.setState({errorMessage: "Cannot create user"})
+		this.setState({errorMessage: "All fields are required"})
 		console.log("Ërror", err);
 	});
   };
@@ -113,6 +113,10 @@ class SignupScreen extends Component {
                 }}
               />
             </Item>
+            {
+		    this.state.name.length == 0 &&
+				<Text style={{fontSize: 12, marginLeft: 15, color: "red"}}>Should not be empty</Text>
+  			}
 
             <Item align>
               <DatePicker
@@ -147,6 +151,10 @@ class SignupScreen extends Component {
                 }}
               />
             </Item>
+            {
+		    this.state.username.length == 0 &&
+				<Text style={{fontSize: 12, marginLeft: 15, color: "red"}}>Should not be empty</Text>
+  			}
 
             <Item align error={this.state.password.length == 0}>
               <Input
@@ -158,6 +166,10 @@ class SignupScreen extends Component {
                 }}
               />
             </Item>
+            {
+		    this.state.password.length == 0 &&
+				<Text style={{fontSize: 12, marginLeft: 15, color: "red"}}>Should not be empty</Text>
+  			}
             <Item
               align
               error={
@@ -177,7 +189,7 @@ class SignupScreen extends Component {
             </Item>
 			{
 				this.state.password2 != this.state.password &&
-				<Text style={{fontSize: 12, marginLeft: 15, color: "red"}}>Password do not match</Text>
+				<Text style={{fontSize: 12, marginLeft: 15, color: "red"}}>Password does not match</Text>
   			}
 
             <Item align stackedLabel>
@@ -241,15 +253,16 @@ class SignupScreen extends Component {
             </Item>
           </Form>
 
-		{this.state.errorMessage &&
-		  <View>
-				<Text>{this.state.errorMessage}</Text>
-		  </View>
-  		}
+		
 
           <Button full warning onPress={this.handleSignup}>
             <Text> Sign Up </Text>
           </Button>
+          {this.state.errorMessage &&
+		  <View style={{}}>
+				<Text style={{color: "red",marginLeft: 110}}>{this.state.errorMessage}</Text>
+		  </View>
+  		}
 
           <View style={styles.text_account}>
             <Button
