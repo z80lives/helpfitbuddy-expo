@@ -8,8 +8,12 @@ import { connect } from "react-redux";
 
 import {GymUserService} from "../../services/gymuser";
 
+import MapView from 'react-native-maps';
+
+import * as Location from 'expo-location';
 
 export class AddGymScreen extends React.Component {
+    map = React.createRef();
   constructor() {
     super();
     this.state = {
@@ -18,9 +22,42 @@ export class AddGymScreen extends React.Component {
 	chosenDate: "",
 	currentSelection: "open",
 	openTimeText: "Enter open time",
-	closeTimeText: "Enter close time"
+	closeTimeText: "Enter close time",
+	name: "",
+	longitude: null,
+	latitude: null,
+	location: null
     };
   }
+
+    updateLocation = async () => {
+	let { status } = await Location.requestPermissionsAsync();
+	if (status !== 'granted') {
+            console.error('Permission to access location was denied');
+	}
+	
+	let location = await Location.getCurrentPositionAsync({});
+	this.setState({location});
+	this.jumpToLocation();
+	console.log("location", location.coords);
+    }
+
+    jumpToLocation(){
+	const { latitude, longitude, latitudeDelta, longitudeDelta } = this.state.location.coords;
+	this.map.animateToRegion({
+	    latitude,
+	    longitude,
+	    latitudeDelta: 0.0922,
+	    longitudeDelta: 0.0421
+	});
+	console.log(this.map)
+	this.setState({latitude: latitude.toString(), longitude: longitude.toString()});
+    }
+
+    componentDidMount(){
+	this.updateLocation();
+    }
+
 
     handlePicker = (datetime) => {
 
@@ -68,7 +105,10 @@ export class AddGymScreen extends React.Component {
             <View>
               <Form>
                 <Item regular style={styles.button}>
-                  <Input placeholder="Name of Gym" />
+                    <Input placeholder="Name of Gym"
+			   value={this.state.name}
+			   onChangeText={(name)=>this.setState({name})}
+		    />
                 </Item>
 
                 <Text>{this.state.chosenDate}</Text>
@@ -90,8 +130,16 @@ export class AddGymScreen extends React.Component {
                 </TouchableOpacity>
 
                 <Item regular style={(styles.button, { marginTop: 15 })}>
-                  <Input placeholder="Location" />
+                    <Input placeholder="Longitude"
+			   value={this.state.latitude}
+			   
+		    />
                 </Item>
+		  <Item regular >
+		      <Input placeholder="Latitude"
+ 			     value={this.state.longitude}
+		      />
+		  </Item>
               </Form>
             </View>
 
@@ -103,6 +151,26 @@ export class AddGymScreen extends React.Component {
               mode={"time"}
             />
           </View>
+	      
+	      <View>
+		  <MapView
+		      ref={map => {this.map = map}} 
+		      style={{
+			  width: "100%",
+			  height: 200
+		      }}
+		      showUserLocation={true}
+		  >
+		      {this.state.location &&
+		       <MapView.Marker
+			 coordinate={this.state.location.coords}
+			 title="Me"
+			 description="Current Location"
+		       />
+			   }
+
+		  </MapView>
+	      </View>
 
           <View>
             <Button full warning onPress={() => Actions.home()}>

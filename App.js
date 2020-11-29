@@ -63,8 +63,7 @@ class App extends React.Component{
 	if(this.state.refreshTimeout == null){
 	    console.log("Initialising refresh timeout");
 	    const refreshTimeout = setInterval( this.refreshTokens,
-					       5000);	    
-					    //10000);
+					       10000);
 	    this.setState({refreshTimeout})	    
 	}	
     }    
