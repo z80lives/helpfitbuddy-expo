@@ -2,23 +2,26 @@ import React from "react";
 import { Container, Grid, Row, Text, View, Icon } from "native-base";
 import { Image, StyleSheet } from "react-native";
 
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 export class ViewProfileScreen extends React.Component {
+  componentDidMount() {
+    console.log("User data :", this.props.user);
+  }
   render() {
     return (
       <Container>
         <Grid>
           <Row>
             <Image
-              source={{uri:this.props.user.image}}
+              source={{ uri: this.props.user.image }}
               style={styles.imageStyle}
             />
           </Row>
           <Row>
-            <Text style={styles.textStyle}>{this.props.user.name},  27</Text>
+            <Text style={styles.textStyle}>{this.props.user.name}, 27</Text>
             <View>
-              <Text style={{ top: 50, right: 180 }}>
+              <Text style={{ top: 50 }}>
                 <Icon
                   style={{ fontSize: 15, color: "#800080" }}
                   name="world-o"
@@ -27,7 +30,7 @@ export class ViewProfileScreen extends React.Component {
                 {this.props.user.country}
               </Text>
 
-              <Text style={{ top: 65, right: 180 }}>
+              <Text style={{ top: 65 }}>
                 <Icon
                   style={{ fontSize: 15, color: "#800080" }}
                   name="wallet-travel"
@@ -40,10 +43,11 @@ export class ViewProfileScreen extends React.Component {
             <View>
               <Text
                 style={{
+
                   top: 130,
-                  right: 250,
                   fontWeight: "bold",
                   fontSize: 18,
+                  right: 150
                 }}
               >
                 <Icon
@@ -56,11 +60,12 @@ export class ViewProfileScreen extends React.Component {
               <Text
                 style={{
                   top: 140,
-                  right: 200,
-                  color: 'gray'
+                  color: "gray",
+                  right: 120
+
                 }}
               >
-              {this.props.user.bio}                
+                {this.props.user.bio}
               </Text>
             </View>
           </Row>
@@ -70,8 +75,8 @@ export class ViewProfileScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({authReducer}) => ({
-  user: authReducer.user  
+const mapStateToProps = ({ authReducer }) => ({
+  user: authReducer.user,
 });
 
 export default connect(mapStateToProps, {})(ViewProfileScreen);
