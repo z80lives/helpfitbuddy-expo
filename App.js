@@ -12,6 +12,7 @@ import {ChatWindow} from "./screens/home/chat/chatWindow";
 import SettingScreen from './screens/home/profile/Setting/setting.jsx';
 
 import ViewMember from "./screens/home/member/viewMember";
+import AddEventScreen from "./screens/home/event/addEvent";
 
 
 import {Router, Stack, Scene} from 'react-native-router-flux';
@@ -28,6 +29,7 @@ import { Ionicons } from '@expo/vector-icons';
 import ViewProfileScreen from './screens/home/profile/ViewProfile/viewProfile.jsx';
 
 import {Root} from "native-base";
+import { event } from 'react-native-reanimated';
 
 const ConnectedRouter = connect()(Router);
 
@@ -148,6 +150,12 @@ class App extends React.Component{
 			    title="Member"			    
 			/>
 
+			<Scene		
+			    component={AddEventScreen}
+			    hideNavBar={false}
+			    key="addEvent"
+			    title="Add Even"
+			/>
 		    </Stack>
 		    </ConnectedRouter>
 	    </Provider>
