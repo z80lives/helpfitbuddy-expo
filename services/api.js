@@ -1,7 +1,8 @@
 import store from '../redux/store';
 
 export class APIService{
-    host = "http://192.168.0.145:5000";
+	host = "http://192.168.1.9:5000";    //testing
+	//host = "https://z80lives.net:5000";  //production
     token = null;
     
     setToken(token){
