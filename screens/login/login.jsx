@@ -41,8 +41,8 @@ class LoginScreen extends Component {
       this.authRedirect();
       this._ismounted = true;
   }
- 
 
+ 
     componentWillUnmount() {
 	this._ismounted = false;
     	Toast.toastInstance = null;

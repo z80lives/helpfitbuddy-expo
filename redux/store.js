@@ -11,7 +11,6 @@ const jwt = ({dispatch, getState}) => {
 };
 
 
-
 export default createStore(
     rootReducer,
     applyMiddleware(jwt)

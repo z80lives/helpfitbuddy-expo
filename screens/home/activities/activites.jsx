@@ -5,6 +5,8 @@ import { Container, Header, Content, Button,
 import {Dimensions} from 'react-native';
 import MapView from 'react-native-maps';
 
+import {GymUserService} from "../../../services/gymuser.js";
+
 import * as Location from 'expo-location';
 
 const LikeView = ({numLikes}) => (
@@ -21,6 +23,7 @@ const GymView = ({num}) => (
 );
 
 class Map extends Component{
+    gymUserServices = new GymUserService();
     state={
 	region: {
 	    latitude: 3.20623,
@@ -45,6 +48,11 @@ class Map extends Component{
 	}
 	
 	let location = await Location.getCurrentPositionAsync({});
+	this.gymUserServices.updateLocation(
+	    location
+	).then(r => console.log(r))
+	
+	
 	this.setState({location});
     }
     

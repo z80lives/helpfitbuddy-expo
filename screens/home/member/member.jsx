@@ -10,6 +10,7 @@ var guy1 = require ('../../../res/guy1.jpeg');
 import {GymUserService} from "../../../services/gymuser.js";
 import { ScrollView } from "react-native-gesture-handler";
 
+import { Actions } from "react-native-router-flux";
 /*
 const testData = [
     {_id: "1", name:"Hothaifa", age: "22", distance: "6", imageSrc: guy1},
@@ -66,6 +67,10 @@ export class MemberScreen extends React.Component{
 	})
     }
 
+    handleViewProfile = (data) => {
+	Actions.viewMember({data});
+    }
+
     componentDidMount(){
 	this.loadNeighbors();
     }
@@ -96,7 +101,10 @@ export class MemberScreen extends React.Component{
 			    <Row style={styles.rowStyles} key={"cardRow_"+rowIndex}>
 				{row.map( (data, colIndex) =>
 				    <Col style={styles.colStyle} key={"cardCol_"+colIndex} >
-					<MemberCard {...data} key={data._id} />
+					<MemberCard
+					    {...data} key={data._id}
+					    onPress={()=> {this.handleViewProfile(data)} }
+					/>
 				    </Col>				 
 				)}
 			    </Row>

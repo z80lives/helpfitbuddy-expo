@@ -6,7 +6,6 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   button: {
     width: 400,
     height: 50,
@@ -20,5 +19,5 @@ export default StyleSheet.create({
     color: "gray",
     alignSelf: "flex-start",
     textAlign: "center",
-  },
+  }
 });

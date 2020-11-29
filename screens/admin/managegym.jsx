@@ -12,8 +12,12 @@ import {GymUserService} from "../../services/gymuser";
 //import {GooglePlacesAutoComplete} from "react-native-google-places-autocomplete";
 
 import AddGymScreen from "./creategym";
+import ViewGymScreen from "./viewgym";
+
 import styles from './style';
 import {makeToast} from "../../utils/notifications";
+
+import {setUserGym} from "../../redux/actions/gym";
 
 //export default connect(null, {})(AddGymScreen);
 class ManageGym extends React.Component{
@@ -21,14 +25,17 @@ class ManageGym extends React.Component{
     
     state={
 	loadComplete: false,
-	ownsGym: false
+	ownsGym: false,
+	gym: null
     };
 
     loadGymData = () =>{
 	this.gymServices.getOwnGym(this.props.user)
 	    .then( r => {
 		const ownsGym = r.data != undefined;
-		this.setState({loadComplete: true, ownsGym});		
+		this.setState({loadComplete: true, ownsGym});
+		//this.setState({gym:r.data});
+		this.props.setUserGym(r.data);
 	    });
     }
 
@@ -56,9 +63,9 @@ class ManageGym extends React.Component{
 		    }
 
 		    {this.state.loadComplete && this.state.ownsGym &&
-		     <View>
-			 <Text>Owns gym</Text>
-		     </View>
+		     <ViewGymScreen
+			 gym={this.props.gym}
+		     />		     
 		    }
 
 		    {this.state.loadComplete && !this.state.ownsGym &&
@@ -74,8 +81,9 @@ class ManageGym extends React.Component{
     }
 }
 
-const mapStateToProps = ({authReducer}) => ({
-    user: authReducer.user
+const mapStateToProps = ({authReducer, gymReducer}) => ({
+    user: authReducer.user,
+    gym: gymReducer.ownedGym
 });
 
-export default connect(mapStateToProps, {})(ManageGym);
+export default connect(mapStateToProps, {setUserGym})(ManageGym);

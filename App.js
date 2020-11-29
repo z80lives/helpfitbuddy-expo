@@ -11,7 +11,7 @@ import AdminScreen from "./screens/admin/admin";
 import {ChatWindow} from "./screens/home/chat/chatWindow";
 import SettingScreen from './screens/home/profile/Setting/setting.jsx';
 
-
+import ViewMember from "./screens/home/member/viewMember";
 
 
 import {Router, Stack, Scene} from 'react-native-router-flux';
@@ -139,6 +139,13 @@ class App extends React.Component{
 			    hideNavBar={false}
 			    key="admin"
 			    title="Admin"
+			/>
+
+			<Scene
+			    component={ViewMember}
+			    hideNavBar={false}
+			    key="viewMember"
+			    title="Member"			    
 			/>
 
 		    </Stack>

@@ -53,6 +53,20 @@ export class GymUserService extends APIService{
 	}
     }
 
+    getGymUser(_id){
+	return this.post(
+	    ["gymuser", "profile"],
+	    {_id}
+	)
+    }
+
+    updateLocation(location){
+	return this.post(
+	    ["gymuser", "location"],
+	    {location}
+	);
+    }
+
     addGym(name, openTime, closeTime, longitude, latitude){
 	return this.post(
 	    ["gym"],
