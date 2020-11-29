@@ -32,7 +32,13 @@ export class GymUserService extends APIService{
 	return this.get(
 	    ["gymuser","neighbors"]
 	);
-    }
+	}
+	
+	getGymList(){
+		return this.get(
+			["gym"]
+		)
+	}
     
     setActivities(activities){
 		console.log("Token", this.getToken());
