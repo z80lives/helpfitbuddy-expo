@@ -20,7 +20,7 @@ export class AuthService extends APIService{
 	const token = this.getToken();
 	if(token != null){
 	    this.get(["login", "refresh"]).then(response => {
-		console.log("refreshing", response.token);
+		console.log("refreshing token");
 		this.getReduxStore().dispatch(auth.refreshAction(response.token));
 	    });
 	}

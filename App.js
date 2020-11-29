@@ -5,7 +5,7 @@ import LoginScreen from './screens/login/login.jsx';
 import SignupScreen from './screens/signup/signup.jsx';
 import HomeScreen from './screens/home/home.jsx';
 
-import AddGymScreen from "./screens/admin/addGym";
+import ManageGymScreen from "./screens/admin/managegym";
 import AdminScreen from "./screens/admin/admin";
 
 import {ChatWindow} from "./screens/home/chat/chatWindow";
@@ -128,7 +128,7 @@ class App extends React.Component{
 			/>
 
 			<Scene
-			    component={AddGymScreen}
+			    component={ManageGymScreen}
 			    hideNavBar={false}
 			    key="addGym"
 			    title="Manage Gym"

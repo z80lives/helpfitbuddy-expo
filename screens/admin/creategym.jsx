@@ -1,28 +1,31 @@
 import React from "react";
-import { Container, Content, Text, View, Input, Item, Form, Button, Spinner } from "native-base";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { StyleSheet, modalStyleIOS } from "react-native";
-
-import { connect } from "react-redux";
-
-import {GymUserService} from "../../services/gymuser";
-
-import MapView from 'react-native-maps';
 
 import * as Location from 'expo-location';
+import MapView from 'react-native-maps';
+
+
+import { Root, Container, Content, Text, Toast,View, Input, Item, Form, Button, Spinner } from "native-base";
+
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import styles from "./style";
+
+import { modalStyleIOS } from "react-native";
+
+import { Actions } from "react-native-router-flux";
 
 export class AddGymScreen extends React.Component {
     map = React.createRef();
-  constructor() {
+    constructor() {
     super();
     this.state = {
 	dateText: "Enter open Time",
 	isVisible: false,
 	chosenDate: "",
 	currentSelection: "open",
-	openTimeText: "Enter open time",
-	closeTimeText: "Enter close time",
+	openTimeText: "",
+	closeTimeText: "",
 	name: "",
 	longitude: null,
 	latitude: null,
@@ -42,6 +45,14 @@ export class AddGymScreen extends React.Component {
 	console.log("location", location.coords);
     }
 
+    makeToast(msg) {
+	Toast.show({
+	    text: msg,
+	    position: "bottom",
+	    duration: 3000,
+	});
+    }
+
     jumpToLocation(){
 	const { latitude, longitude, latitudeDelta, longitudeDelta } = this.state.location.coords;
 	this.map.animateToRegion({
@@ -55,12 +66,34 @@ export class AddGymScreen extends React.Component {
     }
 
     componentDidMount(){
-	this.updateLocation();
+	this.updateLocation();	
     }
 
+    
+    componentWillUnmount() {
+	//this._ismounted = false;
+    	Toast.toastInstance = null;
+    }
+
+    handleCreate = () => {
+	const {name, openTimeText, closeTimeText,longitude, latitude} = this.state;
+	this.props.gymServices.addGym(
+	    name,
+	    openTimeText,
+	    closeTimeText,
+	    longitude,
+	    latitude
+	).then( r => {
+	    this.makeToast(r.message)
+	    //Actions.home();
+	    this.props.onCreate();
+	}).catch( (error) => {
+	    this.makeToast(error);
+	});
+	//Actions.home()
+    }
 
     handlePicker = (datetime) => {
-
 	console.log("datetime", datetime.toLocaleTimeString());
  /*    const formatDate = new Intl.DateTimeFormat("default", {
       hour: "numeric",
@@ -94,6 +127,8 @@ export class AddGymScreen extends React.Component {
       isVisible: true,
     });
   };
+
+    
     
   render() {
       return (
@@ -116,7 +151,7 @@ export class AddGymScreen extends React.Component {
                     style={styles.button}
                     onPress={ () => { this.setState({isVisible: true, currentSelection: "open"})} }
                 >
-                  <Text style={styles.text}> {this.state.openTimeText} </Text>
+                    <Text style={styles.text}> {this.state.openTimeText.length==0?"Select open time":this.state.openTimeText} </Text>
                 </TouchableOpacity>
 
                 <Text>{this.state.chosenDate}</Text>
@@ -126,7 +161,7 @@ export class AddGymScreen extends React.Component {
 		    onPress={ () => { this.setState({isVisible: true, currentSelection: "close"})} }
 
                 >
-                  <Text style={styles.text}> {this.state.closeTimeText} </Text>
+                    <Text style={styles.text}> {this.state.closeTimeText.length==0?"Enter close time":this.state.closeTimeText} </Text>
                 </TouchableOpacity>
 
                 <Item regular style={(styles.button, { marginTop: 15 })}>
@@ -173,7 +208,7 @@ export class AddGymScreen extends React.Component {
 	      </View>
 
           <View>
-            <Button full warning onPress={() => Actions.home()}>
+            <Button full warning onPress={this.handleCreate}>
               <Text style={{ color: "black" }}> Create </Text>
             </Button>
           </View>
@@ -182,81 +217,4 @@ export class AddGymScreen extends React.Component {
   }
 }
 
-//export default connect(null, {})(AddGymScreen);
-
-class ManageGym extends React.Component{
-    gymServices = new GymUserService();
-    state={
-	loadComplete: false,
-	ownsGym: false
-    };
-
-    loadGymData = () =>{
-	this.gymServices.getOwnGym(this.props.user)
-	    .then( r => {
-		const ownsGym = r.data != undefined;
-		this.setState({loadComplete: true, ownsGym});		
-	    });
-    }    
-    
-    componentDidMount(){
-	this.loadGymData();
-    }
-    
-    render(){
-	return(
-	    <Container>
-		<Content>
-		    {!this.state.loadComplete &&
-		     <View style={{justifyContent: "center",
-				   alignItems: "center"}}
-		     >
-			 <Text>Loading</Text>
-			 <Spinner color="blue" />
-		     </View>
-		    }
-
-		    {this.state.loadComplete && this.state.ownsGym &&
-		     <View>
-			 <Text>Owns gym</Text>
-		     </View>
-		    }
-
-		    {this.state.loadComplete && !this.state.ownsGym &&
-		     <AddGymScreen
-		     />
-		    }
-		</Content>
-	</Container>
-	);
-    }
-}
-
-const mapStateToProps = ({authReducer}) => ({
-    user: authReducer.user
-});
-
-export default connect(mapStateToProps, {})(ManageGym);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  button: {
-    width: 400,
-    height: 50,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#DCDCDC",
-    justifyContent: "center",
-  },
-  text: {
-    fontSize: 18,
-    color: "gray",
-    alignSelf: "flex-start",
-    textAlign: "center",
-  },
-});
+export default AddGymScreen;

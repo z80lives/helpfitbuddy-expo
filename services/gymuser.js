@@ -53,15 +53,10 @@ export class GymUserService extends APIService{
 	}
     }
 
-    addGym(user){
-	if(user.type=="gymadmin"){
-	    return this.post(
-		["gym"],
-		{}
-	    );
-	}else{
-	    console.error("User is not allowed to manage gyms");
-	    return new Promise(()=>{}, ()=>{});
-	}
+    addGym(name, openTime, closeTime, longitude, latitude){
+	return this.post(
+	    ["gym"],
+	    {name, openTime, closeTime, location:{longitude, latitude}}
+	);
     }
 }

@@ -67,9 +67,9 @@ export class APIService{
 			  try{
 			      const body = await r.json();
 			      if(body.message){
-				  reject(body.message, new Error(body.message), r);
+				  reject(body.message);
 			      }else{
-				  reject(body, new Error("HTTP Response code "+r.status), r);
+				  reject(body);
 			      }
 			  }catch(ex){
 			      reject("No JSON Object received. Code "+r.status, new Error("HTTP Response code "+r.status), r);
@@ -80,7 +80,7 @@ export class APIService{
 		      console.log("HTTP Exception:", error);
 		      console.log("host", this.host);
 		      console.log("action", actions);
-		      reject("HTTP API Exception occured", error);
+		      reject("HTTP API Exception occured"+error);
 		  });
 	      };
 	return new Promise(promise);
