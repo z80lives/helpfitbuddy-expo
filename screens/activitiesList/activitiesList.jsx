@@ -18,23 +18,23 @@ import {connect} from 'react-redux';
 
 const fitnessItems = [
     {"name": "Boxing", "icon": {"type": "MaterialCommunityIcons", "name": "boxing-glove"}},
-    {"name": "Yoga", "icon": {"type": "MaterialCommunityIcons", "name": "google-fit"}},
+    {"name": "Yoga", "icon": {"type": "MaterialCommunityIcons", "name": "human"}},
     {"name": "Fitness", "icon": {"type": "MaterialIcons", "name": "fitness-center"}},
     {"name": "Walking", "icon": {"type": "MaterialCommunityIcons", "name": "walk"}}
     ,
-    {"name": "Dancing", "icon": {"type": "MaterialCommunityIcons", "name": "google-fit"}},
+    {"name": "Dancing", "icon": {"type": "Ionicons	", "name": "ios-walk"}},
     {"name": "Zumba", "icon": {"type": "Feather", "name": "activity"}},
     {"name": "Gymnastics", "icon": {"type": "MaterialCommunityIcons", "name": "boxing-glove"}},
     {"name": "Running", "icon": {"type": "FontAwesome5", "name": "running"}}
 ];
 
 const ballSports = [
-    {"name": "Handball", "icon": {"type": "MaterialCommunityIcons", "name": "google-fit"}},
-    {"name": "Basketball", "icon": {"type": "MaterialCommunityIcons", "name": "google-fit"}},
-    {"name": "Football", "icon": {"type": "MaterialCommunityIcons", "name": "google-fit"}},
-    {"name": "Golfing", "icon": {"type": "MaterialCommunityIcons", "name": "google-fit"}},
-    {"name": "Volleyball", "icon": {"type": "MaterialCommunityIcons", "name": "google-fit"}},
-    {"name": "Rugby", "icon": {"type": "MaterialCommunityIcons", "name": "google-fit"}},
+    {"name": "Handball", "icon": {"type": "MaterialCommunityIcons", "name": "handball"}},
+    {"name": "Basketball", "icon": {"type": "MaterialCommunityIcons", "name": "basketball"}},
+    {"name": "Football", "icon": {"type": "FontAwesome", "name": "soccer-ball-o"}},
+    {"name": "Golfing", "icon": {"type": "MaterialIcons", "name": "golf-course"}},
+    {"name": "Volleyball", "icon": {"type": "FontAwesome5", "name": "volleyball-ball"}},
+    {"name": "Rugby", "icon": {"type": "FontAwesome5", "name": "football-ball"}},
     
 ];
 
@@ -138,7 +138,7 @@ export class ActivitiesListScreen extends React.Component{
 		<Card>
 		    <Card>
 		    <CardItem header>
-			<Text>Fitness and Wellness</Text>
+			<Text style={{fontWeight: "bold"}}>Fitness and Wellness</Text>
 		    </CardItem>
 		    
 		    <CardItem >
@@ -171,7 +171,7 @@ export class ActivitiesListScreen extends React.Component{
 		    <Card>
 
 		<CardItem header>
-		    <Text>Ball Sports</Text>
+		    <Text style={{fontWeight: "bold"}}>Ball Sports</Text>
 		</CardItem>
 		    
 		    <CardItem >
