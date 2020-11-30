@@ -83,7 +83,7 @@ class SignupScreen extends Component {
     	Actions.login();
     }).catch(err => {
 		this.makeToast("Cannot create user"); //not working
-		this.setState({errorMessage: "All fields are required"})
+		this.setState({errorMessage: err})
 		console.log("Ërror", err);
 	});
   };
@@ -152,6 +152,7 @@ class SignupScreen extends Component {
               />
             </Item>
             {
+              
 		    this.state.username.length == 0 &&
 				<Text style={{fontSize: 12, marginLeft: 15, color: "red"}}>Should not be empty</Text>
   			}
@@ -264,11 +265,12 @@ class SignupScreen extends Component {
 		  </View>
   		}
 
+
           <View style={styles.text_account}>
             <Button
               transparent
               light
-              onPress={() => navigation.navigate("login")}
+              onPress={() => Actions.login("login")}
             >
               <Text>I have an account</Text>
             </Button>

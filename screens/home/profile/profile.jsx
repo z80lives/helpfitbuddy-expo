@@ -96,7 +96,7 @@ export class ProfileScreen extends React.Component {
                   <View>
                     <Button
                       style={styles.circleButton3}
-                      onPress={() => Actions.setting()}
+                     // onPress={() => Actions.setting()}
                     >
                       <Icon
                         style={styles.iconStyle2}
@@ -112,7 +112,11 @@ export class ProfileScreen extends React.Component {
               <Row size={1}>
                 <Col style={{ justifyContent: "center", alignItems: "center" }}>
                   <View>
-                    <Button style={styles.circleButton4}>
+                    <Button style={styles.circleButton4} 
+                                        onPress={() => Actions.setting()}
+
+                    >
+
                       <Icon
                         style={styles.iconStyle4}
                         name="star"

@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     locationStyle: {
 	paddingTop:12,
 	left: 15,
+	top: 10,
 	color: "red",
 	fontSize: 18,
 
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
 	},
 	designText:{
 	left: 15,
+	top: 18
 	},
 	imageStyle: {
 		height: 200, 

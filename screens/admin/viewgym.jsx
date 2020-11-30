@@ -7,7 +7,8 @@ import { Container, View, Text,
 	 H4,
 	 Card,
 	 Item,
-	 Button
+	 Button,
+	 Content
        } from 'native-base';
 
 import { StyleSheet, Image } from "react-native";
@@ -47,20 +48,21 @@ const bdata = {
   ]
 };
 
+
 const chartConfig = {
-      backgroundColor: "#fefefe",
-      backgroundGradientFrom: "#fefef0",
-      backgroundGradientTo: "#fffefe",
+      backgroundColor: "#fff",
+      backgroundGradientFrom: "#fff",
+      backgroundGradientTo: "#fff",
       decimalPlaces: 2, // optional, defaults to 2dp
-      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+      labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
       style: {
         borderRadius: 16
       },
       propsForDots: {
         r: "6",
         strokeWidth: "2",
-        stroke: "#ffa726"
+        stroke: "#ff"
       },
     label: {}
 };
@@ -108,6 +110,7 @@ export class ViewGymScreen  extends React.Component {
 	}else
 	return(
 	    <Container>
+			<Content>
 		<Grid>
 		    
 		{/** GYM NAME **/}
@@ -127,7 +130,7 @@ export class ViewGymScreen  extends React.Component {
 
 		    <Row size={4} >
 			<Grid>
-			    <Row>
+			    <Row style={{height: 275}}>
 				<Card style={{flex: 1}}>
 				    <Text>Map</Text>
 				    <MapView				
@@ -148,9 +151,9 @@ export class ViewGymScreen  extends React.Component {
 
 				</Card>
 			    </Row>
-			    <Row>
+			    <Row style={{height: 270}}>
 				<Card style={{height:220}}>
-				    <Text>Customer Statistics</Text>
+				    <Text style={{fontWeight: "bold"}}>Customer Statistics</Text>
 				    <LineChart
 					data={ldata}
 					width={screenWidth}
@@ -159,20 +162,23 @@ export class ViewGymScreen  extends React.Component {
 				    />
 				</Card>
 			    </Row>
-			    <Row>
+			    <Row >
 				<Card style={{flex:1}}>
-				    <Text>Activity Statistics</Text>
+				    <Text style={{fontWeight: "bold"}}>Activity Statistics</Text>
 				    <LineChart
 					data={bdata}
 					width={screenWidth}
-					height={220}
+					height={256}
+					verticalLabelRotation={30}
 					chartConfig={chartConfig}
+					bezier
 				    />
 				</Card>
 			    </Row>
 			</Grid>
 		</Row>
 	    </Grid>
+		</Content>
 	    </Container>
 	);
     }
