@@ -3,10 +3,12 @@ import React from "react";
 import {Container, Text, Spinner, View} from "native-base";
 
 import {ViewProfileScreen} from "../profile/ViewProfile/viewProfile";
-import {GymUserService} from "../../../services/gymuser.js";
+import {GymUserService} from "../../../services/gymuser";
+import {FriendServices} from "../../../services/friends";
 
 export class ViewMember extends React.Component{
     gymUserServices = new GymUserService();
+    friendServices = new FriendServices();    
     state={
 	loading: true,
 	data: null,
@@ -14,6 +16,18 @@ export class ViewMember extends React.Component{
     }
     componentDidMount(){
 	this.loadUser();
+    }
+
+    sendFriendRequest = ()=>{
+	const otherPersonId = this.state.data._id;
+	
+	this.friendServices.sendFriendRequest(otherPersonId)
+	    .then(r => {	    
+		console.log(r.message);
+		this.loadUser();
+	    }).catch(error => {
+		console.error(error);
+	    });
     }
 
     loadUser = () => {
@@ -36,6 +50,7 @@ export class ViewMember extends React.Component{
 		user={this.state.data}
 		{...this.state.extra}
 		friendMode={true}
+		sendFriendRequest={this.sendFriendRequest}
 	    />
 	    
 	);

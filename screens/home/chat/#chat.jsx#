@@ -24,6 +24,12 @@ const ChatPerson = ({img, name, msg}) => (
     </ListItem>
 );
 
+const FriendListItem = (props) => {
+    <List>
+
+	</ListItem>
+}
+
 export class ChatScreen extends React.Component{
     render(){
         return(
@@ -37,6 +43,16 @@ export class ChatScreen extends React.Component{
                 </List>
             </Container>
         )
+    }
+}
+
+class FriendList extends React.Component{
+    render(){
+	<Container>
+	    <List>
+
+	    </List>
+	</Container>
     }
 }
 

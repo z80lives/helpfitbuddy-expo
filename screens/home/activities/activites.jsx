@@ -9,6 +9,8 @@ import {GymUserService} from "../../../services/gymuser.js";
 
 import * as Location from 'expo-location';
 
+import {FriendRequestView} from "../../friend_requests"
+
 const LikeView = ({numLikes}) => (
   <Container>
     <Text>{numLikes} people liked your profile.</Text>
@@ -102,20 +104,18 @@ export class ActivityScreen extends Component {
           <Tabs>
 	      <Tab heading="Map">
 		  <Map>
-
+		      
 		  </Map>
 	      </Tab>
-          <Tab heading="Likes">
-            <LikeView 
-              numLikes={123}
-            />
-          </Tab>
-          <Tab heading="Gyms">
-            <GymView 
-              num={213}
-            />
-          </Tab>
-        </Tabs>
+              <Tab heading="Notifications">
+		  <FriendRequestView />
+              </Tab>
+              <Tab heading="Gyms">
+		  <GymView 
+		      num={213}
+		  />
+              </Tab>
+          </Tabs>
       </Container>
     );
   }

@@ -8,7 +8,7 @@ import {Image, Alert} from 'react-native';
 import {MemberScreen} from "./member/member.jsx";
 import {ActivityScreen} from "./activities/activites.jsx";
 import {EventScreen} from './event/event.jsx';
-import {ChatScreen} from './chat/chat.jsx'
+import ChatScreen from './chat/chat.jsx'
 import ProfileScreen from './profile/profile.jsx'
 import { connect } from 'react-redux';
 
@@ -201,7 +201,7 @@ class HomeScreen extends Component {
 			</Button>
 			<Button vertical onPress={()=>this.clickNav(3)} active={this.state.currentPage==3}>
 			    <Icon active={this.state.currentPage==3} name="chat" type="MaterialIcons" />
-			    <Text>Chat</Text>
+			    <Text>Friends</Text>
 			</Button>
 			<Button vertical onPress={()=>this.clickNav(4)} active={this.state.currentPage==4}>
 			    <Icon active={this.state.currentPage==4} name="person" type="MaterialIcons"/>

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Container, Text, View, Card, Icon, Fab } from "native-base";
+import { Container, Content,Text, View, Card, Icon, Fab } from "native-base";
 
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { Dimensions } from "react-native";
 import { Actions } from "react-native-router-flux";
 
+import {EventServices} from "../../../services/events";
 /*
 const items = {
       '2020-11-16': [{name: 'item 1 - any js object'}],
@@ -16,20 +17,44 @@ const markedDates = {
     '2012-05-16': {selected: true, marked: true},
     '2012-05-17': {marked: true},
     '2012-05-18': {disabled: true}
-};*/
+    };*/
 
 export class EventScreen extends Component {
+    eventServices = new EventServices();
   state = {
-    selectedDate: "2020-11-16",
-    items: {
+      selectedDate: (new Date()).toISOString().split('T')[0],
+      items: null
+    /*items: {
       "2020-11-17": [{ name: "Jogging", time: "15:00" }],
       "2020-11-16": [{ name: "Swimming", time: "14:00" }],
-    },
+    },*/
   };
+
+    formatDate = (dateObj) => {
+	return dateObj.toISOString().split('T')[0]
+    }
+
+    componentDidMount(){	
+	this.loadEvents();
+    }
+    
+    loadEvents = () => {
+	this.eventServices.getEvents().then( r => {
+	    console.log("Loading events", r.events);	    
+	    const selectedDate =
+		  r.events.length!=0?
+		  Object.keys(r.events)[0]
+		  :this.state.selectedDate;
+	    console.log("Loading events", selectedDate.toString());	    
+	    this.setState({items: r.events, selectedDate: "2020-11-20"});
+	    //this.setState({items:items})	    
+	});
+    }
+    
   render() {
     return (
-        <View style={{flex:1}}>
-      <AgendaItem
+        <Container style={{height: Dimensions.get('window').height-80}}>
+	    <AgendaItem
         items={this.state.items}
         selected={this.state.selectedDate}
         markedDates={{}}
@@ -56,10 +81,10 @@ export class EventScreen extends Component {
             }}
             position="bottomRight"
         onPress={() => {Actions.addEvent()} }>
-            <Icon name="share" />
+        <Icon name="share" />
           </Fab>
           
-      </View>
+      </Container>
     );
   }
 }
@@ -71,7 +96,8 @@ const ScheduleItem = (item) => (
         width: 350,
         height: 100,
         borderRadius: 20,
-        backgroundColor: "#CCCCFF",
+            backgroundColor: "#CCCCFF",
+	    alignItems: "center"
       }}
     >
       <Text style={{ marginLeft: 15, marginTop: 7, color: "blue" }}>

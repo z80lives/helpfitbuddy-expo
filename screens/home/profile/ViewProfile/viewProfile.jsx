@@ -84,8 +84,13 @@ export class ViewProfileScreen extends React.Component {
 		    
 		    {this.props.friendMode && !this.props.notFriend &&
 		     <Card style={{flex:1}}>
-		     <Button disabled={this.props.friendRequestSent} >
-			 <Text>Send friend request</Text>
+			 <Button disabled={this.props.friendRequestExists}
+				 onPress={this.props.sendFriendRequest}
+			 >
+			     
+			 <Text>{this.props.friendRequestExists?
+			      "Friend Request Pending"
+			      :"Send Friend Request"}</Text>
 		     </Button>
 		     </Card>
 		    }
