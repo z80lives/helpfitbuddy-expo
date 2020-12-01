@@ -4,27 +4,34 @@ import { Container,  Content, Text, View, Icon, Card, H4 , Button, ToggleButton,
        } from "native-base";
 import { ImageBackground, StyleSheet } from "react-native";
 
-import { connect } from "react-redux";
 
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 import {Dimensions} from 'react-native';
 
 import {EventServices} from "../../../../services/events.jsx";
+import { connect } from 'react-redux';
 
 export class ViewProfileScreen extends React.Component {
     eventServices = new EventServices();
     
     state={
-	friendEvents:null
+	events:null
     }
     
     loadFriendEvents(){
-	console.log("user", this.props.user._id);
+	//console.log("user", this.props.user._id);
 	this.eventServices.getUserEvents(this.props.user._id)
 	    .then(r => {
-		console.log(r);
+		this.setState({events: r.events})		
 	    }).catch(console.error);
+    }
+
+    handleJoin = (_id) => {
+	this.eventServices.joinUserEvent(_id).then(r => {
+	    console.log("r" , r);
+	}).catch(console.error);
+	this.loadFriendEvents();
     }
     
     componentDidMount(){
@@ -151,7 +158,12 @@ export class ViewProfileScreen extends React.Component {
 		    <Card style={{flex:1}}>
 			<Text>Events</Text>
 
-			{this.state.friendEvents?<Text>Friend events</Text>:<View><Spinner/></View>}
+			{this.state.events?this.state.events.map(data=> <FriendEventCard
+									    key={data._id} {...data}
+									    onJoinEvent={this.handleJoin}
+									    isAlreadyJoined={data.participants.includes(
+										this.props.user._id)}
+									/>):<View><Spinner/></View>}
 		    </Card>
 		</View>
 		}
@@ -163,7 +175,20 @@ export class ViewProfileScreen extends React.Component {
 }
 
 const FriendEventCard = (props) => (
-    <View><Text>Friend Event Card Here </Text></View>
+    <View style={{margin: 3, minHeight: 50}}>
+	<Card style={{flex:1, padding: 5}}>
+	    <Text>{props.name}</Text>
+	    <Text>{props.time}</Text>
+	    <Text>{props.date}</Text>
+	    <Text>People coming:{props.participants.length}</Text>
+	    <Button
+		onPress={()=>{
+		    props.onJoinEvent(props._id);
+		}}
+		disabled={props.isAlreadyJoined}
+	    ><Text>Join</Text></Button>	     
+	</Card>
+    </View>
 )
 
 const InterestButton = ({key, label}) => 
@@ -188,7 +213,7 @@ const InterestButton = ({key, label}) =>
 const FriendRequestButton = ({friendMode, isfriend, friendRequestExists, sendFriendRequest, style}) => (
     <View style={style}>{friendMode && !isfriend &&	
        <Button disabled={friendRequestExists}
-	       onPress={sendFriendRequest}
+	       onPress={sendFriendRequest}	       
        ><Text>{friendRequestExists?
 		  "Friend Request Pending"
 		  :"Send Friend Request"}</Text>

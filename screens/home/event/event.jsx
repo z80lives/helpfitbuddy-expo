@@ -85,7 +85,7 @@ export class EventScreen extends Component {
           });
           console.log("DATE", date);
 		}}
-		onRefresh={this.loadEvents}
+		onRefresh={()=>this.loadEvents}
         onDayPress={() => console.log("Day pressed")}
         theme={{
           backgroundColor: "rgba(243,129,129,0.9)",
@@ -99,7 +99,7 @@ export class EventScreen extends Component {
     <Fab
             style={{ backgroundColor: '#5067FF',
                     top: 0
-            }}
+            }} 
             position="bottomRight"
         onPress={() => {Actions.addEvent({onSave: ()=> {
 	    Actions.home({currentPage: 2})

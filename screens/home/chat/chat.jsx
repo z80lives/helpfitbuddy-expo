@@ -7,10 +7,13 @@ import { Actions } from "react-native-router-flux";
 
 import FriendList from "../../friendlist.jsx";
 
-var guy1 = require ('../../../res/guy1.jpeg');
+import {FriendServices} from "../../../services/friends.jsx"
+var guy1 = require ('../../../res/blank.png');
 
-const ChatPerson = ({img, name, msg}) => (
-    <ListItem key={1} thumbnail button={true} onPress={()=>Actions.chatwindow()}>
+const conversations = [];
+
+const ChatPerson = ({img, name, msg, _id}) => (
+    <ListItem key={1} thumbnail button={true} onPress={()=>Actions.chatwindow({other_user_id: _id})}>
     <Left>
         <Thumbnail square source={img} />
     </Left>
@@ -28,15 +31,32 @@ const ChatPerson = ({img, name, msg}) => (
 
 
 export class ChatScreen extends React.Component{
+    friendServices = new FriendServices();
+    loadFriends(){
+	this.friendServices.getFriendList().then(r => {
+	    this.setState({friends: r.friends});
+	}).catch(console.error);
+    }
+    componentDidMount(){
+	this.loadFriends();
+    }
+    state={
+	friends: null
+    }
     render(){
         return(
             <Container>
-                  <List>
-                   <ChatPerson 
-                    name={"Ibrahim"}
-                    img={guy1}
-                    msg={"Hello, would you like to join me for a jog?"}
-                   />
+                <List>
+		    {this.state.friends &&
+		     this.state.friends.map( user => 
+			<ChatPerson 
+			    name={user.name}
+			    img={guy1}
+			    msg={""}
+			    _id={user._id}
+			/>
+		    )
+		    }
                 </List>
             </Container>
         )

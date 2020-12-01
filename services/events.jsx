@@ -14,6 +14,13 @@ export class EventServices extends APIService{
 	);	 
     }
 
+    joinUserEvent(_id){
+	return this.post(
+	    ["gymuser", "event", "join"],
+	    {_id}
+	);
+    }
+
     //localhost:5000/gymuser/event
     createEvent(name, date, time, gym, type){
 	return this.post(
