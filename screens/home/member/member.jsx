@@ -16,7 +16,7 @@ const testData = [
     {_id: "1", name:"Hothaifa", age: "22", distance: "6", imageSrc: guy1},
     {_id: "2", name:"Ibrahim", age: "30", distance: "16", imageSrc: guy1},
     {_id: "3", name:"Hothaifa", age: "32", distance: "35", imageSrc: guy1}
-];*/
+ ];*/
 
 const sortGridItems = (td) => {
     const x =  td.map( (a,i) => ({key:i, el: a }));

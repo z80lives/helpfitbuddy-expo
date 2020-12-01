@@ -144,6 +144,7 @@ export class AddEventScreen extends React.Component {
                     width: 400,
                     height: 50,
                     borderWidth: 1,
+                    marginTop: 10,
                     borderColor: "#D3D3D3",
                   }}
                 >
@@ -264,7 +265,6 @@ const styles = StyleSheet.create({
   button: {
     width: 400,
     height: 50,
-    borderRadius: 5,
     borderWidth: 1,
     borderColor: "#DCDCDC",
     justifyContent: "center",
@@ -272,6 +272,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     color: "gray",
+    left: 10,
     alignSelf: "flex-start",
     textAlign: "center",
   },

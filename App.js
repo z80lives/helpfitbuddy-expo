@@ -20,6 +20,7 @@ import {connect, Provider} from 'react-redux';
 import store from './redux/store';
 
 import {AuthService} from "./services/auth";
+import SelectPhotoScreen from "./screens/home/profile/selectPhoto";
 
 
 //const ConnectedRouter = connect()(Router);
@@ -156,6 +157,21 @@ class App extends React.Component{
 			    key="addEvent"
 			    title="Add Even"
 			/>
+
+			<Scene		
+			    component={AddEventScreen}
+			    hideNavBar={false}
+			    key="addEvent"
+			    title="Add Even"
+			/>
+
+			<Scene		
+			    component={SelectPhotoScreen}
+			    hideNavBar={false}
+			    key="selectPhoto"
+			    title="Select Photo"
+			/>
+
 		    </Stack>
 		    </ConnectedRouter>
 	    </Provider>

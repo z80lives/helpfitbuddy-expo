@@ -96,14 +96,16 @@ class PhotoPicker extends Component{
 		/>
 		    <View style={{justifyContent: 'center', alignItems:'center',
 				  margin: 5}}>
-			<Button onPress={this.openImagePickerAsync} width={"100%"} >
-			    <Text >Pick a photo</Text>
+			<Button style={{left: 30}}
+			onPress={this.openImagePickerAsync} width={"100%"} >
+			    <Text>Pick a photo</Text>
 			</Button>
 
 		    </View>
 		    <View style={{justifyContent: 'center', alignItems:'center',
 				  margin: 5}}>		    
-			<Button onPress={this.handleSave} width={"100%"}>
+			<Button style={{left: 55}}
+			onPress={this.handleSave} width={"100%"}>
 			    <Text>Save</Text>
 			</Button>
 		    </View>
