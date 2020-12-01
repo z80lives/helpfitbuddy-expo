@@ -1,5 +1,5 @@
 import React from "react";
-import { Container,  Text, View, Icon, Card, H4 , Button} from "native-base";
+import { Container, Text, View, Icon, Card, H4, Button } from "native-base";
 import { Image, StyleSheet } from "react-native";
 
 import { connect } from "react-redux";
@@ -12,93 +12,94 @@ export class ViewProfileScreen extends React.Component {
   }
   render() {
     return (
-	<Container>
-            <Grid >
-		<Row size={3}>
-		    <View style={{flex:1}}>
-			<Image
-			    source={{ uri: this.props.user.image }}
-			    style={styles.imageStyle}
-			/>
-		    </View>
-		</Row>
-		
-		<Row  size={1}>
-		    <View>
-		    <Text style={styles.textStyle}>{this.props.user.name}, 27</Text>
-		    <View style={{ flex:1}} >
-			<Text>
-			    <Icon
-				style={{ fontSize: 15, color: "#800080" }}
-				name="world-o"
-				type="Fontisto"
-			    />
-			    {this.props.user.country}
-			</Text>
-			
-			<Text>
-			    <Icon
-				style={{ fontSize: 15, color: "#800080" }}
-				name="wallet-travel"
-				type="MaterialCommunityIcons"
-			    />
-			    {this.props.user.occupation}
-			</Text>
-		    </View>
-		    </View>
-		</Row>
-	    
-		<Row size={1}>
-		    
-		    <View>
-			<Text
-			    style={{
-				fontWeight: "bold",
-				fontSize: 18,
-			    }}
-			>
-			    <Icon
-				style={{ fontSize: 15, color: "#800080" }}
-				name="person"
-				type="Fontisto"
-			    />
-			    About Me
-			</Text>
-			<Text
-			    style={{
-				color: "gray",
-			    }}
-			>
-			    {this.props.user.bio}
-			</Text>			
-		    </View>
-		</Row>		
+      <Container>
+        <Grid>
+          <Row size={3}>
+            <View style={{ flex: 1 }}>
+              <Image
+                source={{ uri: this.props.user.image }}
+                style={styles.imageStyle}
+              />
+            </View>
+          </Row>
 
-		<Row size={1.7}>
+          <Row size={1}>
+            <View>
+              <Text style={styles.textStyle}>{this.props.user.name}, 27</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={{ left: 10, marginBottom: 10 }}>
+                  <Icon
+                    style={{ fontSize: 15, color: "#800080" }}
+                    name="world-o"
+                    type="Fontisto"
+                  />
+                  {this.props.user.country}
+                </Text>
 
-		    {!this.props.friendMode&&
-		    <Card style={{flex:1}}>
-			<Text>You have no friends</Text>
-		    </Card>
-		    }
-		    
-		    {this.props.friendMode && !this.props.notFriend &&
-		     <Card style={{flex:1}}>
-			 <Button disabled={this.props.friendRequestExists}
-				 onPress={this.props.sendFriendRequest}
-			 >
-			     
-			 <Text>{this.props.friendRequestExists?
-			      "Friend Request Pending"
-			      :"Send Friend Request"}</Text>
-		     </Button>
-		     </Card>
-		    }
-		     
-		</Row>
-		
-            </Grid>
-	</Container>
+                <Text style={{ left: 10 }}>
+                  <Icon
+                    style={{ fontSize: 15, color: "#800080" }}
+                    name="wallet-travel"
+                    type="MaterialCommunityIcons"
+                  />
+                  {this.props.user.occupation}
+                </Text>
+              </View>
+            </View>
+          </Row>
+
+          <Row size={1}>
+            <View>
+              <Text
+                style={{
+                  fontWeight: "bold",
+				  fontSize: 18,
+				  marginTop: 20,
+                  left: 10,
+                }}
+              >
+                <Icon
+                  style={{fontSize: 15, color: "#800080" }}
+                  name="person"
+                  type="Fontisto"
+                />
+                About Me
+              </Text>
+              <Text
+                style={{
+					left: 30,
+                  color: "gray",
+                }}
+              >
+                {this.props.user.bio}
+              </Text>
+            </View>
+          </Row>
+
+          <Row size={1.7}>
+            {!this.props.friendMode && (
+              <Card style={{ flex: 1 }}>
+                <Text>You have no friends</Text>
+              </Card>
+            )}
+
+            {this.props.friendMode && !this.props.notFriend && (
+              <Card style={{ flex: 1 }}>
+                <Button style={{left: 60,top: 5, width: 300}}
+                  disabled={this.props.friendRequestExists}
+                  onPress={this.props.sendFriendRequest}
+                >
+                  <Text style={{left: 50}}>
+                    {this.props.friendRequestExists
+                      ? "Friend Request Pending"
+                      : "Send Friend Request"}
+                  </Text>
+                </Button>
+              </Card>
+            )}
+          </Row>
+        </Grid>
+      </Container>
     );
   }
 }
@@ -114,13 +115,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderWidth: 1,
-      borderColor: "gray",
-      resizeMode: "stretch",
+    borderColor: "gray",
+    resizeMode: "stretch",
   },
   textStyle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginTop: 20,
+	marginTop: 20,
+	marginBottom: 10,
     left: 10,
   },
   textStyle1: {

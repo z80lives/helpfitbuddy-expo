@@ -81,7 +81,7 @@ export class EventScreen extends Component {
             }}
             position="bottomRight"
         onPress={() => {Actions.addEvent()} }>
-        <Icon name="share" />
+        <Icon type= "MaterialIcons" name="add-circle-outline" />
           </Fab>
           
       </Container>

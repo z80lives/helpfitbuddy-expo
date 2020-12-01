@@ -34,7 +34,9 @@ export class ProfileScreen extends React.Component {
                   style={{ justifyContent: "center", paddingLeft: 10 }}
                   size={1}
                 >
-                  <Button style={styles.thumbnailButton}>
+                  <Button 
+                   onPress={() => Actions.selectPhoto()}
+                  style={styles.thumbnailButton}>
                     {!this.props.user.image ? (
                       <Icon name="person" type="Octicons" />
                     ) : (

@@ -117,7 +117,7 @@ class PhotoPicker extends Component{
 
 class HomeScreen extends Component {
     state={
-	currentPage: 0,
+	currentPage: this.props.setPage!=null? this.props.setPage :0,
 	showActivityList: false,
 	showPictureSet: false
     }
