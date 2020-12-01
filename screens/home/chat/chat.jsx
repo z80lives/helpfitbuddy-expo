@@ -5,6 +5,8 @@ import {Container, Text,Tabs, Tab, Thumbnail,
        } from "native-base";
 import { Actions } from "react-native-router-flux";
 
+import FriendList from "../../friendlist.jsx";
+
 var guy1 = require ('../../../res/guy1.jpeg');
 
 const ChatPerson = ({img, name, msg}) => (
@@ -24,6 +26,7 @@ const ChatPerson = ({img, name, msg}) => (
     </ListItem>
 );
 
+
 export class ChatScreen extends React.Component{
     render(){
         return(
@@ -40,6 +43,7 @@ export class ChatScreen extends React.Component{
     }
 }
 
+
 export class FriendView extends React.Component{
     render(){
 	return(
@@ -49,9 +53,7 @@ export class FriendView extends React.Component{
 			<ChatScreen />
 		    </Tab>
 		    <Tab heading="Friends">
-			<View>
-			    <Text>Hello</Text>
-			</View>
+			<FriendList />
 		    </Tab>
 		</Tabs>
 	    </Container>

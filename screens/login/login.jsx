@@ -68,7 +68,6 @@ class LoginScreen extends Component {
       this.authServices
         .login(this.state.username, this.state.password)
         .then((response) => {
-          console.log("Here 2", this.state.username, this.state.password);
           if (response.token != null) {
             this.authServices.setToken(response.token);
             this.authServices
@@ -140,7 +139,6 @@ class LoginScreen extends Component {
                   placeholder="Username"
                   value={this.state.username}
                   onChangeText={(val) => {
-                    console.log("val", val);
                     this.setState({ username: val });
                   }}
                 />

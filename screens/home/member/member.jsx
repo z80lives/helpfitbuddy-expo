@@ -64,7 +64,7 @@ export class MemberScreen extends React.Component{
 		if(this._ismounted)
 		    this.setState({personData: sortedData, isEmpty: false});
 	    }
-	})
+	}).catch(err => console.error(err) )
     }
 
     handleViewProfile = (data) => {

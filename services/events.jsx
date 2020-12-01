@@ -6,4 +6,12 @@ export class EventServices extends APIService{
 	    ["gymuser", "event"]
 	);
     }
+
+    //localhost:5000/gymuser/event
+    createEvent(name, date, time, gym, type){
+	return this.post(
+	    ["gymuser", "event"],
+	    {name, date, time, gym, type, invite:"friends"}
+	);
+    }
 }

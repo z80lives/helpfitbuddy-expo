@@ -8,7 +8,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 export class ViewProfileScreen extends React.Component {
   componentDidMount() {
-    console.log("User data :", this.props.user);
+      console.log("User data :", Object.keys(this.props));
   }
   render() {
     return (
@@ -82,8 +82,8 @@ export class ViewProfileScreen extends React.Component {
 		    </Card>
 		    }
 		    
-		    {this.props.friendMode && !this.props.notFriend &&
-		     <Card style={{flex:1}}>
+		    {this.props.friendMode && !this.props.isFriend &&
+		     <Card style={{flex:1, alignItems:"center", justifyContent: "center"}}>
 			 <Button disabled={this.props.friendRequestExists}
 				 onPress={this.props.sendFriendRequest}
 			 >
